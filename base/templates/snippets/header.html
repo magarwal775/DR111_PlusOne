@@ -1,0 +1,114 @@
+<!-- header -->
+<!-- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #02263c;">
+  <a class="navbar-brand" href="/">
+    {% if user.is_authenticated %}
+    Hello {{request.user.first_name}}
+    {% else %}
+    Welcome! Please Login/SignUp
+    {% endif %}
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/searchalumni">Search Alumni</a>
+      </li>
+      {% if not user.is_authenticated %}
+      <li class="nav-item">
+        <a class="nav-link" href="/signup">Signup</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/login">Login</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/profile/{{ request.user.first_name}}/{{ request.user.id }}">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+      {% endif %}
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+  </div>
+</nav> -->
+
+<header>
+  <div class="navbar-fixed">
+    <nav class="black">
+      <div class="nav-wrapper">
+        <ul class="left hide-on-med-and-down">
+          <li><a href="/" style="text-decoration: none;">Home</a></li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+          {% if not user.is_authenticated %}
+          <li><a href="/login" style="text-decoration: none;">Login</a></li>
+          <li><a href="/signup" style="text-decoration: none;">Sign-Up</a></li>
+          {% endif %}
+          <li><a href="/searchalumni" style="text-decoration: none;">Search</a></li>
+          <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"
+              style="text-decoration: none;"><i class="material-icons">menu</i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  <ul id="slide-out" class="sidenav">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <img src="https://picsum.photos/600">
+        </div>
+        {% if user.is_authenticated %}
+        <a href="#user" style="text-decoration: none;"><img class="circle materialboxed"
+            src="{{ request.user.profile_photo.url }}"></a>
+        <a href="#name" style="text-decoration: none;"><span
+            class="white-text name">{{ request.user.full_name }}</span></a>
+        <a href="#email" style="text-decoration: none;"><span
+            class="white-text email">{{ request.user.email }}</span></a>
+        {% else %}
+        <a href="#user" style="text-decoration: none;"><img class="circle materialboxed"
+            src="http://www.gravatar.com/avatar/?d=mp"></a>
+        <a href="#name" style="text-decoration: none;"><span class="white-text-name">Not Logged In</span></a>
+        <a href="#email" style="text-decoration: none;"><span
+            class="white-text email">{{ request.user.email }}</span></a>
+        {% endif %}
+      </div>
+    </li>
+    {% if user.is_authenticated %}
+    <li><a href="/profile/{{ request.user.username }}/{{ request.user.id }}"><i
+          class="material-icons">account_circle</i>Profile</a></li>
+    <li><a href="/chat/general"><i class="material-icons">chat</i>Group Chat</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a onclick="dest('{{ request.user.college.name }}')"><i class="material-icons">chat_bubble</i>College
+        Chat</a></li>
+    <li><a class="waves-effect" href="/logout"><i class="material-icons">remove_circle</i>Logout</a></li>
+    {% else %}
+    <li><a href="/login" style="text-decoration: none;"><i class="material-icons">account_circle</i>Login</a></li>
+    <li><a href="/signup" style="text-decoration: none;"><i class="material-icons">account_circle</i>Sign-Up</a></li>
+    {% endif %}
+  </ul>
+</header>

@@ -1,0 +1,54 @@
+<style>
+  #home-gallery{
+    box-shadow: 0 0 3px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 1px rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  #home-gallery > div.gallery-heading{
+    padding-left: 25px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+  }
+  #home-gallery > div.gallery-heading > h5{
+    color: #333;
+    float: left;
+    display: inline;
+    font-size: 1.8rem;
+  }
+  #home-gallery > div.gallery-heading > a > p{
+    float: right;
+  }
+  #home-gallery > div.gallery.row{
+    padding-top: 5px;
+  }
+  #home-gallery > div.gallery.row > div > div.mdb-lightbox > figure > a > img{
+    padding-top: 15px;
+  }
+</style>
+<div id="home-gallery" class="card">
+  <div class="gallery-heading">
+    <h5><b>Gallery</b></h5>
+    <a href="#"><p class="viewall">view all</p></a>
+  </div>
+  <div class="gallery row">
+    <div class="col-md-12">
+
+      <div id="mdb-lightbox-ui"></div>
+
+      <div class="mdb-lightbox">
+
+        {% for each in gallery %}
+          <figure class="col-md-4">
+            <a href="#" data-size="1600x1067">
+              <img alt="picture" src="{{each.img.url}}" class="img-fluid">
+            </a>
+          </figure>
+        {% endfor %}
+
+      </div>
+
+    </div>
+  </div>
+</div>

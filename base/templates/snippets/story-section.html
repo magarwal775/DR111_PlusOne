@@ -1,0 +1,74 @@
+<style>
+  #home-story{
+    margin-top: 20px;
+    box-shadow: 0 0 3px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 1px rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+  }
+
+  #home-story > div > div.section-heading > p{
+    padding-top: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+
+  #home-story > div > div.section-content > div.story-details > a > p.story-title{
+    padding-top: 10px;
+    padding-bottom: 5px;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  #home-story > div > div.section-content > div.story-details > a > p.separator{
+    text-align: center;
+    padding-top: 8px;
+    margin-bottom: 0;
+    border-bottom: 2px solid #086490;
+    box-sizing: border-box;
+    width: 30%;
+    margin: 0.5rem auto 0;
+  }
+
+  #home-story > div > div.section-content > div.story-details > a > p.story-author{
+    text-align: center;
+    color: black;
+    font-style: italic;
+  }
+
+  #home-story > div > div.section-content > div.story-details > a > p.story-body{
+    text-align: center;
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 10px;
+    color: black;
+    font-style: italic;
+  }
+
+  #home-story > div > div.section-content > a > p{
+    text-align: center;
+  }
+</style>
+
+{% if storyitem %}
+  <div id="home-right-col" class="column small-12 large-3 large-push-9">
+    <div id="home-story">
+      <div class="card">
+        <div class="section-heading">
+          <p><b>STORY</b></p>
+        </div>
+        <div class="section-content">
+          <div class="story-details">
+            <a href="{% url 'base:speceficstory' storyitem.id %}">
+              <p class="story-title">{{storyitem.title}}</p>
+              <p class="story-author">By {{storyitem.user.first_name}} {{storyitem.user.last_name}}</p>
+              <p class="separator"></p>
+              <p class="story-body">{{storyitem.body|slice:":50"}}...</p>
+            </a>
+          </div>
+          <a href="{% url 'base:allstory' %}" class="read-full"><p class="read-full">Read All Stories</p></a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

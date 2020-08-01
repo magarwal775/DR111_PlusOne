@@ -13,7 +13,6 @@ from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
@@ -24,7 +23,6 @@ SECRET_KEY = 'py#&2imzj4#2op4snlrm8+c=6#vowzughi14rpep!-_$a^a)m='
 DEBUG = config('DEBUG', cast=bool, default=True)
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -39,6 +37,7 @@ INSTALLED_APPS = [
     'base',
     'college',
     'channels',
+    'chat',
     'django_extensions',
 ]
 
@@ -56,9 +55,7 @@ ROOT_URLCONF = 'AlumniTrackingSystem.urls'
 
 AUTH_USER_MODEL = "accounts.User"
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-)
+AUTHENTICATION_BACKENDS = ('django.contrib.auth.backends.ModelBackend', )
 
 TEMPLATES = [
     {
@@ -77,9 +74,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'AlumniTrackingSystem.wsgi.application'
-ASGI_APPLICATION = "AlumniTrackingSystem.routing.application"
-
 ASGI_APPLICATION = 'AlumniTrackingSystem.routing.application'
+
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -102,12 +98,12 @@ if not DEBUG:
 else:
     DATABASES = {
         'default': {
-            'ENGINE':'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': config('DB_NAME'),
-            'USER':config('DB_USER'),
-            'PASSWORD':config('DB_PASSWORD'),
-            'HOST':config('DB_HOST'),
-            'PORT':config('DB_PORT'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': config('DB_PORT'),
         }
     }
 
@@ -129,7 +125,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
@@ -143,14 +138,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'media')
-]
+STATIC_DIRS = [os.path.join(BASE_DIR, 'static'), os.path.join(BASE_DIR, 'media')]
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
@@ -158,7 +149,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static_cdn')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media_cdn')
 
-TRIX_EXTENSIONS = ['.jpg','.png']
+TRIX_EXTENSIONS = ['.jpg', '.png']
 TRIX_URI = 'trix'
 
 LOGIN_URL = '/'
