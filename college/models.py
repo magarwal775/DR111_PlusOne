@@ -1,5 +1,4 @@
 from django.db import models
-from chat.models import Group
 from hashlib import md5
 
 

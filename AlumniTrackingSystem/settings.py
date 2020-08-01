@@ -39,13 +39,7 @@ INSTALLED_APPS = [
     'base',
     'college',
     'channels',
-    'chat',
     'django_extensions',
-    'jobs',
-    'payments',
-    'mailer',
-    'django_email_verification',
-    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
