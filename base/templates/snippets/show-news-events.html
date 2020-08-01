@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<style>
+  #home-news {
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 1px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 20px;
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+
+  #home-news>div>div.section-heading>p {
+    padding-top: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+
+  #home-news>div>div.section-content>div.news-item {
+    padding-bottom: 2px;
+    padding-top: 15px;
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+
+  #home-news>div>div.section-content>div.news-item>a>p.title {
+    font-style: italic;
+    text-align: center;
+    font-size: 1.3rem;
+  }
+
+  #home-news>div>div.section-content>div.news-item>a>p.date {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+
+  #home-news>div>div.section-content>p.separator {
+    border-bottom: 2px solid #02263c;
+    box-sizing: border-box;
+    width: 30%;
+    margin: 0.5rem auto 0;
+    align: center;
+  }
+
+  #home-news>div>div.section-content>p.viewall {
+    padding-top: 15px;
+    text-align: center;
+  }
+
+  #home-events {
+    padding-top: 0px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 1px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+    margin-top: 20px;
+    padding-bottom: 0;
+  }
+
+  #home-events>div>div>div.event {
+    padding-top: 20px;
+  }
+
+  #home-events>div>div.section-heading>p {
+    padding-top: 25px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f2f2f2;
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+  }
+
+  #home-events>div>div.section-content>div>a>p.separator {
+    border-bottom: 2px solid #086490;
+    box-sizing: border-box;
+    width: 30%;
+    margin: 0.5rem auto 0;
+    align: center;
+  }
+
+  #home-events>div>div.section-content>div>a>p.venue {
+    font-style: italic;
+    text-align: center;
+  }
+
+  #home-events>div>div.section-content>div>a>p.date {
+    text-align: center;
+    background-color: #02263c;
+    color: white;
+    margin-bottom: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  #home-events>div>div.section-content>div>a>p.date {
+    text-align: center;
+  }
+
+  #home-events>div>div.section-content>div>a>div>p.title {
+    text-align: center;
+    font-family: Georgia, Helvetica, Arial, sans-serif;
+    padding-top: 10px;
+    margin-bottom: 0;
+  }
+
+  #home-events>div>div.section-content>div>a>div>p.start-time {
+    text-align: center;
+    font-family: Georgia, Helvetica, Arial, sans-serif;
+    padding-top: 5px;
+    color: black;
+  }
+
+  #home-events>div>div.section-content>div>a>div>p.venue {
+    text-align: center;
+    font-family: Georgia, Helvetica, Arial, sans-serif;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
+  }
+
+  #home-events>div>div.section-content>div>a>div>p.separator {
+    text-align: center;
+    padding-top: 8px;
+    margin-bottom: 0;
+    border-bottom: 2px solid #086490;
+    box-sizing: border-box;
+    width: 30%;
+    margin: 0.5rem auto 0;
+  }
+
+  #home-events>div>div.section-content>div>a>div {
+    background-color: #f4f4f4;
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+
+  #home-events>div>div.section-content>p.viewall {
+    padding-top: 15px;
+    text-align: center;
+  }
+</style>
+
+<body>
+
+  <div id="home-right-col" class="column small-12 large-3 large-push-9">
+    <div id="home-news" class="section">
+      <div class="card">
+        <div class="section-heading">
+          <p><b>LATEST NEWS</b></p>
+        </div>
+        <div class="section-content">
+          {% for item in newsitem %}
+          <div class="news-item">
+            <a href="{% url 'base:speceficnews' item.id %}">
+              <p class="date">{{item.date_time_month}} {{item.date_time_date}}</p>
+              <p class="title">{{item.title}}</p>
+            </a>
+          </div>
+          {% if lastnews != item %}
+          <p class="separator"></p>
+          {% endif %}
+          {% endfor %}
+          <p class="viewall"><a href="{% url 'base:allnews' %}">View all</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="home-events" class="section">
+      <div class="card">
+        <div class="section-heading">
+          <p><b>LATEST EVENTS</b></p>
+        </div>
+        <div class="section-content">
+          {% for item in eventsitem %}
+          <div class="event">
+            <a href="{% url 'base:speceficevent' item.id %}">
+              <p class="date">{{item.start_date_day}} | {{item.start_date_date}} {{item.start_date_month}},
+                {{item.start_date_year}}</p>
+              <div class="content">
+                <p class="title">{{item.title}}</p>
+                <p class="start-time">From {{item.start_time}} IST</p>
+                {% if item.venue %}
+                <p class="separator"></p>
+                <p class="venue">{{item.venue}}</p>
+                {% endif %}
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+          <p class="viewall"><a href="{% url 'base:allevents' %}">View all</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

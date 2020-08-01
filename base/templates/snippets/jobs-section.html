@@ -1,0 +1,61 @@
+<style>
+  .btn-primary{
+    background-color: #086490;
+  }
+  #home-jobs{
+    box-shadow: 0 0 3px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 1px rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+    margin-top: 20px;
+  }
+  #home-jobs > div.card-body > div.col-sm-6.lastjob{
+    border-left: 2px solid #086490;
+    padding-left: 40px;
+  }
+
+  #home-jobs > div.section-heading{
+    padding-left: 25px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+  }
+
+  #home-jobs > div.section-heading > h5{
+    color: #333;
+    float: left;
+    display: inline;
+    font-size: 1.8rem;
+  }
+  #home-jobs > div.section-heading > a > p{
+    float: right;
+  }
+</style>
+<body>
+
+
+<div id="home-jobs" class="card">
+  <div class="section-heading">
+    <h5><b>JOBS AND INTERNSHIP</b></h5>
+    <a class="view_all" href="{% url 'base:jobsection' %}"><p>View all Jobs</p></a>
+  </div>
+  <div class="card-body">
+    {% for each in jobsitem %}
+      {% if each != lastjob %}
+      <div class="col-sm-6 lastjob">
+      {% else %}
+      <div class="col-sm-6">
+      {% endif %}
+        <div class="section">
+          <a href="#">
+            <p class="title">{{each.title}} | <i>{{each.organisation}}</i></p>
+          </a>
+          <p><b>Location:</b> {{each.location}}</p>
+          <p><b>Salary:</b> {{each.salary}}</p>
+          <a href="#" class="btn btn-primary">APPLY</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+</body>
+</html>
