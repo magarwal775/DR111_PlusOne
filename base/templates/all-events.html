@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style type="text/css" media="screen">
+p{
+  text-align: center;
+  font-size: 1em;
+
+}
+div .event-block .event-date {
+  font-size: 1.5em;
+  background-color: #f37020;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  grid-area: photo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ .event-block {
+  margin: 10px;
+  display: grid;
+  grid-template-areas: 
+    'photo info';
+  grid-template-columns: 30% 70%;
+  width: 500px;
+  background-color: #ffffff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  line-height: 1.75em;
+}
+.info-container {
+  padding: 20px;
+  grid-area: info;
+}
+
+ .event-date {
+  font-size: 1.5em;
+  background-color: #f37020;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  grid-area: photo;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.event-title {
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 20px;
+}
+
+</style>
+
+
+<div class="event-page-title">
+  <p>Events</p>
+</div>
+
+<div class="page_content">
+  <div id="upcoming_events">
+    <p>Upcoming Events</p>
+    <div class="row">
+      {% for each in upcoming_events %}
+      <a href="{% url 'base:speceficevent' each.id %}">
+        <div class="col lg-6 sm-12 event-column">
+          <div class="event-block">
+           <div class="info-container">
+            <p class="event-title">{{each.title}}</p>
+            <p class="event-venue">Venue : {{each.venue}}</p>
+            </div>
+            <p class="event-date">{{each.start_date}}</p>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div id="past_events">
+    <p>Past Events</p>
+    <div class="row">
+      {% for each in past_events %}
+      <a href="{% url 'base:speceficevent' each.id %}">
+        <div class="col lg-6 sm-12 event-column">
+          <div class="event-block">
+          <div class="info-container">
+            <p class="event-title">{{each.title}}</p>
+            <p class="event-venue">{{each.venue}}</p>
+          </div>
+            <p class="event-date">{{each.start_date}}</p>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
+</body>
+</html>
