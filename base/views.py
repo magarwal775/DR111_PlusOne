@@ -31,6 +31,7 @@ def base(request):
 def dashboard(request):
     user = request.user
     context = {}
+    today = datetime.datetime.today()
     events = Event.objects.filter(college=user.college or not college)
     news = News.objects.filter(college=user.college or not college)
     stories = Story.objects.filter(college=user.college or not college)
@@ -42,6 +43,13 @@ def dashboard(request):
     else:
         context["approvals"] = approvals[0:5]
     context["pendingapprovals"] = approvals.count()
+    alumni_count = User.objects.filter(college=user.college).filter(is_alumni= True).count()
+    faculty_count = User.objects.filter(college=user.college).filter(is_faculty = True).count()
+    upcoming_events = Event.objects.filter(college=user.college or not college).filter(Q(start_date__gte=today)).count()
+    context["alumni_count"] = alumni_count
+    context["faculty_count"] = faculty_count
+    context["event_count"] = upcoming_events
+
     return render(request, "dashboard.html", context)
 
 

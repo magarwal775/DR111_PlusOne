@@ -109,12 +109,9 @@
                                         <div class="col">
                                             <h5 class="m-0">Upcoming Event</h5>
                                         </div>
-                                        <div class="col-auto">
-                                            <label class="label theme-bg2 text-white f-14 f-w-400 float-right">34%</label>
-                                        </div>
                                     </div>
-                                    <h2 class="mt-3 f-w-300">45<sub class="text-muted f-14">Competitors</sub></h2>
-                                    <h6 class="text-muted mt-4 mb-0">You can participate in event </h6>
+                                    <a class="mt-3 f-w-300">{{event_count}}</a>
+                                    <a href="{% url 'base:allevents' %}"class="text-muted mt-4 mb-0"> View Events </a>
                                     <i class="fab fa-angellist text-c-purple f-50"></i>
                                 </div>
                             </div>
@@ -122,22 +119,22 @@
                                 <div class="card-block border-bottom">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-auto">
-                                            <i class="feather icon-zap f-30 text-c-green"></i>
+                                            <i class="fas fa-university large"></i>
                                         </div>
                                         <div class="col">
-                                            <h3 class="f-w-300">235</h3>
-                                            <span class="d-block text-uppercase">TOTAL IDEAS</span>
+                                            <h3 class="f-w-300">{{alumni_count}}</h3>
+                                            <span class="d-block text-uppercase">Alumnus</span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="card-block">
                                     <div class="row d-flex align-items-center">
                                         <div class="col-auto">
-                                            <i class="feather icon-map-pin f-30 text-c-blue"></i>
+                                          <i class="fas fa-chalkboard-teacher"></i>
                                         </div>
                                         <div class="col">
-                                            <h3 class="f-w-300">26</h3>
-                                            <span class="d-block text-uppercase">TOTAL LOCATIONS</span>
+                                            <h3 class="f-w-300">{{faculty_count}}</h3>
+                                            <span class="d-block text-uppercase">Faculty Members</span>
                                         </div>
                                     </div>
                                 </div>
