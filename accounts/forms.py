@@ -14,7 +14,7 @@ def year_choices():
 
 
 class AlumniSignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=100)
+    first_name = forms.CharField()
     last_name = forms.CharField(max_length=100)
     college = forms.ModelChoiceField(queryset=College.objects.all(), required=True)
     unique_id = forms.CharField(max_length=200)
