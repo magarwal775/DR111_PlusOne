@@ -27,17 +27,17 @@
             </p>
 
         </div>
-        
+
 <div class="container">
-        
+
         <div class="row">
-          
+
                 {% for each in jobsitem %}
                 <div class="col-md-4">
-                        
+
                     <div class="card">
                       <div class="card-body">
-                        
+
                           <a href="#">
                         <h5 class="card-title">{{each.title}}</h5>
                         <p><span class="organisation">{{each.organisation}}</span></p>
@@ -51,14 +51,14 @@
                           </p>
                         </p>
                         <a href="#" class="btn btn-primary" role="button">APPLY</a>
-                       
+
                       </div>
                     </div>
-                    </div> 
+                    </div>
                     {% endfor %}
                         </div>
                         </div>
                       </div>
-                      
+
         </div>
 {% endblock content %}
