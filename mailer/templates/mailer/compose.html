@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Compose An E-mail</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+    <script src="https://cdn.ckeditor.com/ckeditor5/16.0.0/classic/ckeditor.js"></script>
+    <script src="{% static 'chat/js/materialize.js' %}"></script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 30vh;
+        }
+
+        li {
+            margin-top: 1em;
+        }
+
+        button {
+            margin-top: 2em;
+        }
+
+        .compose-box {
+            padding-left: 3em;
+            padding-right: 3em;
+            padding-top: 1.5em;
+            padding-bottom: 1.5em;
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .back {
+            margin: 1em;
+        }
+
+        .back-text {
+            display: inline;
+            font-size: 1.5em;
+        }
+
+        select {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="container-fluid back">
+            <a class="btn-floating btn-large waves-effect waves-light blue" href="{{ '/mail/' }}"><i
+                    class="material-icons">arrow_back</i></a>
+            <p class="back-text">Go back</p>
+        </div>
+        {% if messages %}
+        <ul class="alert alert-info messages">
+            {% for message in messages %}
+            <!-- <li{% if message.tags %} class="{{ message.tags }}" {% endif %}></li> -->
+            <script>M.toast({ html: '{{ message }}' })</script>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <div class="compose-box container z-depth-2">
+            <h2>Compose your mail</h2>
+            <form action="{{ '/mail/send/' }}" method=POST enctype="multipart/form-data">
+                <ul>
+                    {% csrf_token %}
+                    {{ form.as_ul }}
+                    <button class="btn waves-effect waves-light blue" type="submit" name="action">Send
+                        <i class="material-icons right">send</i>
+                    </button>
+                </ul>
+            </form>
+        </div>
+    </main>
+    {% include 'mailer/footer.html' %}
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote'],
+                width: ['50vw'],
+                height: ['30vh'],
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        document.getElementById("id_college").onchange = changeListener;
+        const to = document.getElementById("id_to");
+
+        function changeListener() {
+            var value = this.value;
+
+            if (value == "") {
+                to.setAttribute("required", true);
+                to.removeAttribute("disabled");
+            }
+            else {
+                to.removeAttribute("required");
+                to.setAttribute("disabled", true);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
