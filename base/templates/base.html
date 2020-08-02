@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+  {% load mapbox_location_field_tags %}
+  {% location_field_includes %}
+  {% include_jquery %}
 </head>
 
 <body>
@@ -19,8 +22,8 @@
   {% include 'snippets/header.html' %}
 
   <main>
-  {% block content %}
-  {% endblock content %}
+    {% block content %}
+    {% endblock content %}
   </main>
 
   {% include 'snippets/footer.html' %}
