@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required
 def base(request):
     return render(request, "base.html")
 
+
 def dashboard(request):
     user = request.user
     context = {}
@@ -38,13 +39,13 @@ def dashboard(request):
     gallery = Gallery.objects.filter(college=user.college or not college)
     carousel = Carousel.objects.filter(college=user.college or not college)
     approvals = Alumni.objects.filter(user__college=user.college).filter(profile_verified=0)
-    if approvals.count()>5:
+    if approvals.count() > 5:
         context["approvals"] = approvals
     else:
         context["approvals"] = approvals[0:5]
     context["pendingapprovals"] = approvals.count()
-    alumni_count = User.objects.filter(college=user.college).filter(is_alumni= True).count()
-    faculty_count = User.objects.filter(college=user.college).filter(is_faculty = True).count()
+    alumni_count = User.objects.filter(college=user.college).filter(is_alumni=True).count()
+    faculty_count = User.objects.filter(college=user.college).filter(is_faculty=True).count()
     upcoming_events = Event.objects.filter(college=user.college or not college).filter(Q(start_date__gte=today)).count()
     context["alumni_count"] = alumni_count
     context["faculty_count"] = faculty_count
@@ -428,10 +429,11 @@ def notif_read(request):
             notif.save()
     return JsonResponse({" message": "success"})
 
+
+@csrf_exempt
 def analytics(request, *args, **kwargs):
     labels = []
     data = []
-    context ={}
 
     for year in range(1947, datetime.date.today().year + 1):
         queryset = Alumni.objects.filter(year_of_passing=year)
@@ -444,3 +446,36 @@ def analytics(request, *args, **kwargs):
         "data": data,
     }
     return render(request, "analytics.html", context)
+
+
+@csrf_exempt
+def analytics_dataset(request):
+    labels = []
+    data = []
+
+    for year in range(1947, datetime.date.today().year + 1):
+        queryset = Alumni.objects.filter(year_of_passing=year)
+        cnt = queryset.count()
+        labels.append(year)
+        data.append(cnt)
+
+    context = {
+        "labels": labels,
+        "data": data,
+    }
+    return JsonResponse(context)
+
+def facultylist(request):
+    context = {}
+    user=request.user
+    faculty = Faculty.objects.filter(user__college=user.college)
+    context["faculty"] = faculty
+    context["faculty_count"] = faculty.count()
+
+    return render(request, "faculty-list.html", context)
+
+def search_alumni_admin(request):
+    context = {}
+    user_list = User.objects.filter(is_alumni=1)
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, "search_alumni_admin.html", {"filter": user_filter})

@@ -1,0 +1,341 @@
+{% extends "dashboard.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+	.oubox{
+		width: 10%;
+	}
+</style>
+
+<body>
+	<div class="outbox">
+		<br>
+		<div class="row container z-depth-5">
+			<br>
+			<h4 class="center-align"><i class="small material-icons">search</i>&nbsp; &nbsp;Search Almunis</h4>
+			<form class="col s12" method="GET">
+				<div class="row">
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">account_circle</i>
+						{% render_field filter.form.full_name class="validate" %}
+						{{ filter.form.full_name.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">account_circle</i>
+						{% render_field filter.form.first_name class="validate" %}
+						{{ filter.form.first_name.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">account_circle</i>
+						{% render_field filter.form.last_name class="validate" %}
+						{{ filter.form.last_name.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">home</i>
+						{% render_field filter.form.college class="validate" %}
+						{{ filter.form.college.label_tag }}
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">business_center</i>
+						{% render_field filter.form.department class="validate" %}
+						{{ filter.form.department.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">book</i>
+						{% render_field filter.form.course class="validate" %}
+						{{ filter.form.course.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3">
+						<i class="material-icons prefix">school</i>
+						{% render_field filter.form.specialization class="validate" %}
+						{{ filter.form.specialization.label_tag }}
+					</div>
+					<div class="input-field col s12 m3 l3 center-align">
+						<button class="waves-effect waves-light btn" type="submit" name="action"><i
+								class="material-icons right">search</i>Search</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		{% if filter.qs %}
+		<div class="container z-depth-5">
+			<ul class="collection">
+				{% for user in filter.qs %}
+				<!-- <a href="profile/{{user.first_name}}/{{user.id}}">
+				<div class="profile_conteiner col-sm-4 col-md-3">
+					<div class="image_conteiner">
+						<div class="image">
+							{% if user.profile_photo %}
+							<img src="{{user.profile_photo.url}}" />
+							{% endif %}
+						</div>
+					</div>
+					<div class="text_conteiner">
+						<div class="title">
+							<h3>{{user.first_name}} {{user.last_name}}</h3>
+							<p>College: {{user.college.name}}</p>
+							<p>Department: {{user.department.name}}</p>
+						</div>
+						<div class="objective">
+							<p>About Me: {{user.about_me}}</p>
+						</div><br>
+					</div>
+				</div>
+			</a> -->
+				<!-- <div class="col s12 m4 l4 offset-s2 center-align">
+					<div class="card small">
+						<div class="card-image">
+							<img src="{{ user.profile_photo.url }}" class="activator">
+							<span class="card-title activator">{{ user.first_name }} {{ user.last_name }}</span>
+							<a href="/profile/{{user.first_name}}/{{user.id}}"
+								class="btn-floating halfway-fab waves-effect waves-light red"><i
+									class="material-icons">arrow_forward</i></a>
+						</div>
+						<div class="card-content">
+							<p class="activator">College: {{user.college.name}}</p>
+							<p class="activator">Department: {{user.department.name}}</p>
+						</div>
+						<div class="card-reveal">
+							<span class="card-title">{{ user.first_name }} {{ user.last_name }}<i
+									class="material-icons right">close</i></span>
+							<p>{{ user.about_me }}</p>
+						</div>
+					</div>
+				</div> -->
+				<li class="collection-item avatar">
+					<img src="{{user.profile_photo.url}}" class="circle materialboxed">
+					<span class="title">{{user.first_name}} {{user.last_name}}</span>
+					<p>{{user.college.name}}<br>{{user.department.name}}</p>
+					<a href="/profile/{{user.first_name}}/{{user.id}}" class="secondary-content"><i
+							class="material-icons">arrow_forward</i></a>
+				</li>
+				{% empty %}
+				<li>
+					<p class="center-align">No results found</p>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+		{% endif %}
+	</div>
+	<script>
+		$(document).ready(function () {
+			$('.materialboxed').materialbox();
+		});
+		$(function () {
+			$('.sidenav').sidenav({
+				edge: 'right',
+			});
+		});
+
+		document.addEventListener('DOMContentLoaded', function () {
+			var elems = document.querySelectorAll('select');
+			var instances = M.FormSelect.init(elems);
+		});
+
+		$(document).ready(function () {
+			$('.slider').slider();
+		});
+
+		function dest(d) {
+			let hash = CryptoJS.MD5(d).toString();
+			window.location.href = "/chat/" + hash;
+		}
+	</script>
+	<style>
+		body {
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+		}
+
+	</style>
+<!-- <style>
+	.well {
+		width: 95%;
+		margin: auto;
+		margin-top: 50px;
+		margin-bottom: 20px;
+		padding-right: 0;
+		box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), -1px 0 0 rgba(0, 0, 0, 0.03), 1px 0 1px rgba(0, 0, 0, 0.03), 0 1px 0 rgba(0, 0, 0, 0.12);
+		background: #f5f5f5
+	}
+
+	.well>div.section-heading>p {
+		text-align: center;
+		font-size: 2.5rem;
+		border-bottom: 5px solid white;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		font-family: Garamond;
+	}
+
+	.well>div.row>div.form-group.col-sm-4.col-md-3 {
+		border: 2px solid white;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-top: 10px;
+		padding-bottom: 10px;
+	}
+
+	.well>div.row>div.form-group.col-sm-4.col-md-3>p.label>label {
+		font-size: 1.5rem;
+		color: black;
+		font-family: Garamond;
+		padding-top: 5px;
+	}
+
+	.well>button {
+		margin-left: 30px;
+		margin-bottom: 30px;
+	}
+
+	.well>div.row>div.form-group.col-sm-4.col-md-3>input {
+		background: white;
+		border: 1px solid black;
+	}
+
+
+
+	.profile_conteiner {
+		height: 500px;
+		width: 95%;
+		box-shadow: 0px 6px 10px -6px;
+		border-radius: 10px;
+		margin: auto;
+		margin-top: 60px;
+		margin-bottom: 60px;
+		overflow: hidden;
+	}
+
+	.image_conteiner {
+		height: 150px;
+		background: purple;
+	}
+
+	.image {
+		background: tomato;
+		height: 120px;
+		width: 120px;
+		padding: 5px;
+		border-radius: 50%;
+		transform: translate(105px, 90px);
+	}
+
+	.image img {
+		height: 110px;
+		width: 110px;
+		border-radius: 50%;
+
+	}
+
+	.text_conteiner {
+		height: 350px;
+		background: white;
+		padding: 20px;
+		padding-top: 70px;
+	}
+
+	.text_conteiner h3,
+	h4,
+	p {
+		text-align: center;
+	}
+
+	.title h4 {
+		color: lightcoral;
+
+		.btn:hover {
+			background: none;
+			color: purple;
+			border: 2px solid purple;
+			border-style: double;
+			transition: 1s;
+		}
+
+		.btn a {
+			text-decoration: none;
+			color: blue;
+			line-height: 40px;
+			color: white;
+			display: block;
+		}
+
+		.btn a:hover {
+			color: purple;
+			transition: 1s;
+			top: 0;
+		}
+</style> -->
+
+<!-- <form method="get">
+	<div class="well">
+		<div class="section-heading">
+			<p class="heading"><b>Search Alumni</b></p>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.full_name.label_tag }}</p>
+				{% render_field filter.form.full_name class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.first_name.label_tag }}</p>
+				{% render_field filter.form.first_name class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.last_name.label_tag }}</p>
+				{% render_field filter.form.last_name class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.college.label_tag }}</p>
+				{% render_field filter.form.college class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.course.label_tag }}</p>
+				{% render_field filter.form.course class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.department.label_tag }}</p>
+				{% render_field filter.form.department class="form-control" %}
+			</div>
+			<div class="form-group col-sm-4 col-md-3">
+				<p class="label">{{ filter.form.specialization.label_tag }}</p>
+				{% render_field filter.form.specialization class="form-control" %}
+			</div>
+		</div>
+		<button type="submit" class="btn btn-primary">
+			<span class="glyphicon glyphicon-search"></span> Search
+		</button>
+	</div>
+</form>
+
+{% for user in filter.qs %}
+<a href="profile/{{user.first_name}}/{{user.id}}">
+	<div class="profile_conteiner col-sm-4 col-md-3">
+		<div class="image_conteiner">
+			<div class="image">
+				{% if user.profile_photo %}
+				<img src="{{user.profile_photo.url}}"/>
+				{% endif %}
+			</div>
+		</div>
+		<div class="text_conteiner">
+			<div class="title">
+				<h3>{{user.first_name}} {{user.last_name}}</h3>
+				<p>College: {{user.college.name}}</p>
+				<p>Course: {{user.course.name}}</p>
+			</div>
+			<div class="objective">
+			<p>About Me: {{user.about_me}}</p>
+			</div><br>
+		</div>
+	</div>
+</a>
+{% empty %}
+<p><b>No Results</b></p>
+{% endfor %}-->
+{% endblock content %}
