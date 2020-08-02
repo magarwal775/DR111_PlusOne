@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+
+<link href="{% static 'base/css/addeventform.css' %}" rel="stylesheet"></style>
+<div class="container">
+  <div class="jumbotron">
+    <form method="POST" enctype="multipart/form-data" novalidate>{% csrf_token %}
+      {%for each in form%}
+      <p>
+      {{each.label_tag}}
+      {{each}}
+      </p>
+      {%endfor%}
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</div>
+{% endblock content %}

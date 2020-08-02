@@ -1,6 +1,9 @@
 from django import forms
 from base.models import Event, News, Story, EventRegistrationList,Recommendation
+import datetime
 
+def year_choices():
+    return [(r, r) for r in range(1947, datetime.date.today().year + 1)]
 
 class AddEvent(forms.ModelForm):
     class Meta:
@@ -28,6 +31,7 @@ class EventRegistration(forms.ModelForm):
 
 class Recommend(forms.ModelForm):
 
+    Year_Passing = forms.ChoiceField(choices=year_choices())
     class Meta:
         model = Recommendation
-        fields = ('first_name','last_name','email','college','Year_Passing', 'facebook_profile','linkedin_profile')
+        fields = ('first_name','last_name','email','college','Year_Passing','facebook_profile','linkedin_profile')
