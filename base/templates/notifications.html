@@ -1,0 +1,126 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification Page</title>
+    <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="{% static 'chat/js/materialize.js' %}"></script>
+    <style>
+        .compose {
+            display: inline;
+            font-size: 2em;
+            font-weight: 400;
+        }
+
+        .history {
+            margin-top: 4em;
+            padding-top: 1em;
+            padding-bottom: 1em;
+        }
+
+        .log {
+            padding-left: 0.7em;
+            padding-top: 0.1em;
+            padding-bottom: 0.002em;
+        }
+
+        .back {
+            margin: 1em;
+        }
+
+        .back-text {
+            display: inline;
+            font-size: 1.5em;
+        }
+
+        body {
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    {% include 'snippets/header.html' %}
+    <main>
+        <div class="container">
+            <h2>Notifications:</h2>
+            <div class="container-fluid history">
+                <h4>History</h4>
+                {% if notifs %}
+                <ul class="alert alert-info messages">
+                    {% for n in notifs %}
+                    <li class="">
+                        {% if n.read %}
+                        <div class="conatiner-fluid z-depth-1 card-panel log grey lighten-6">
+                            {{ n.to_user.first_name }} {{ n.to_user.last_name }}</h6>
+                            <p>
+                                <strong>[{{ n.subject }}]</strong>
+                                {{ n.body | truncatechars:80 }}
+                                <small> -- sent by {{ n.from_user.first_name }} {{ n.from_user.last_name }},
+                                    Admin</small>
+                            </p>
+                        </div>
+                        {% else %}
+                        <div class="container-fluid z-depth-1 card-panel log grey lighten-5">
+                            {{ n.to_user.first_name }} {{ n.to_user.last_name }}</h6>
+                            <p>
+                                <strong>[{{ n.subject }}]</strong>
+                                {{ n.body | truncatechars:80 }}
+                                <small> -- sent by {{ n.from_user.first_name }} {{ n.from_user.last_name }},
+                                    Admin</small>
+                            </p>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    {% include 'snippets/footer.html' %}
+</body>
+<script>
+    $(document).ready(function () {
+        $('.materialboxed').materialbox();
+    });
+    $(function () {
+        $('.sidenav').sidenav({
+            edge: 'right',
+        });
+    });
+
+    function dest(d) {
+        let hash = CryptoJS.MD5(d).toString();
+        window.location.href = "/chat/" + hash;
+    }
+    $(document).ready(function () {
+        $.ajax({
+            data: { id: '{{ request.user.id }}' },
+            url: '/notifsread/',
+            type: 'post',
+            contentType: "application/x-www-form-urlencoded",
+            success: function (res) {
+                console.log(res);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    })
+</script>
+
+</html>

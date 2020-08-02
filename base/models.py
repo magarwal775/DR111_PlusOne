@@ -113,6 +113,16 @@ class Notice(models.Model):
     def __str__(self):
         return self.title
 
+class PersontoPersonNotifs(models.Model):
+    from_user = models.ForeignKey(User, related_name="from_user_id", on_delete=models.CASCADE, blank=True, null=True)
+    to_user = models.ForeignKey(User, related_name="to_user_id", on_delete=models.CASCADE, blank=True, null=True)
+    subject = models.TextField(max_length=150, null=True, blank=True)
+    text = models.TextField(max_length=1000)
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.subject
+
 class Story(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=150)

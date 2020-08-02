@@ -5,36 +5,51 @@
 {% block content %}
 
 <head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <link rel="stylesheet" type="text/css"
+    href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+  <link href="{% static 'base/css/profilepage.css' %}" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 </head>
-<link href="{% static 'base/css/profilepage.css' %}" rel="stylesheet">
 
 <style>
-  #resume-sec > div > div > div.col-lg-7 > div > div.section{
+  #resume-sec>div>div>div.col-lg-7>div>div.section {
     padding-bottom: 1px;
     padding-top: 1px;
   }
 </style>
 
- <!-- Sections -->
- <!-- Personal Photo top page -->
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="position: relative; top: 0em;">
+  <div class="toast-header">
+    <strong class="mr-auto">Notification</strong>
+    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="toast-body"></div>
+</div>
+<!-- Sections -->
+<!-- Personal Photo top page -->
 <div class="text-center personal-img-container">
-  <img src="{{request.user.profile_photo.url}}" class="rounded-circle personal-img" alt="Portfolio Image Omar">
+  <img src="{{user.profile_photo.url}}" class="rounded-circle personal-img" alt="Portfolio Image Omar">
 </div>
 
 
 <div class="container container-custom" style="margin-bottom: 300px;">
 
-  <div id="top-sec" class="jumbotron top-section text-center side-shadow"> <!-- Top Section -->
+  <div id="top-sec" class="jumbotron top-section text-center side-shadow">
+    <!-- Top Section -->
     <div class="row">
 
-      <div class="col-md-12"><br/>
+      <div class="col-md-12"><br />
         <br>
-        <h1 style="font-family: Copperplate, Copperplate Gothic Light, fantasy;  font-weight: 500; line-height: 26.4px;">{{user.first_name}} {{user.last_name}}</h1>
+        <h1
+          style="font-family: Copperplate, Copperplate Gothic Light, fantasy;  font-weight: 500; line-height: 26.4px;">
+          {{user.first_name}} {{user.last_name}}</h1>
         <br>
         {% if is_alumni %}
         <h2>Alumni, {{user.college}}</h2>
@@ -45,7 +60,7 @@
         {% endif %}
         <!-- <img src="https://goo.gl/Gp6bWr" alt="University of Michigan UMD" style="width: 100px; "> -->
 
-        <br/><br/>
+        <br /><br />
         {%if is_alumni%}
         <strong>{{user.course}} &bull; Batch of {{alumni.year_of_passing}}</strong>
         {% elif is_faculty%}
@@ -62,30 +77,39 @@
 
   <!-- About Me Section -->
   {% if user.about_me %}
-    <div id="about-sec" class="jumbotron middle-section text-center side-shadow" style="background-color: #1872ae;">
-      <!-- 'ABOUT ME' VECTOR -->
-      <h1 style="color: whitesmoke;">ABOUT ME</h1>
-      <svg height="25" width="60%">
-        <style type="text/css">.st0{opacity:0.35; fill:none; stroke:#000000; stroke-linecap:round; stroke-miterlimit:10;}</style>
-        <line class="st0" x1="0" y1="8" x2="100%" y2="8"/>
-      </svg>
+  <div id="about-sec" class="jumbotron middle-section text-center side-shadow" style="background-color: #1872ae;">
+    <!-- 'ABOUT ME' VECTOR -->
+    <h1 style="color: whitesmoke;">ABOUT ME</h1>
+    <svg height="25" width="60%">
+      <style type="text/css">
+        .st0 {
+          opacity: 0.35;
+          fill: none;
+          stroke: #000000;
+          stroke-linecap: round;
+          stroke-miterlimit: 10;
+        }
+      </style>
+      <line class="st0" x1="0" y1="8" x2="100%" y2="8" />
+    </svg>
 
-      <div class="row">
-        <div class="col-md-2"></div>
+    <div class="row">
+      <div class="col-md-2"></div>
 
-        <div class="col-md-8">
-          <p class="about-me-txt" style="color: #e3e3e3;">{{user.about_me}}</p>
+      <div class="col-md-8">
+        <p class="about-me-txt" style="color: #e3e3e3;">{{user.about_me}}</p>
 
-        </div>
-
-        <div class="col-md-2"></div>
       </div>
+
+      <div class="col-md-2"></div>
     </div>
+  </div>
   {% endif %}
   <!-- End of About Me Section -->
 
 
-  <div id="nav-sec" class="jumbotron middle-section text-center nav-texture side-shadow"> <!-- Navigation Section -->
+  <div id="nav-sec" class="jumbotron middle-section text-center nav-texture side-shadow">
+    <!-- Navigation Section -->
 
     <div class="row">
       <div class="col-md-12">
@@ -94,31 +118,38 @@
         <div class="row">
 
           {% if user.linkedin_profile %}
-          <div class="col-lg-2"> <!-- LinkedIn Button -->
+          <div class="col-lg-2">
+            <!-- LinkedIn Button -->
             <button class="nav-button-text btn btn-primary" onclick="location.href = '{{user.linkedin_profile}}';"">LinkedIn Profile</button>
           </div>
           {% endif %}
 
           {% if user.facebook_profile %}
-          <div class="col-lg-2"> <!-- About Me Button -->
-            <p class="nav-button-text btn btn-primary" onclick="location.href = '{{user.facebook_profile}}';">Facebook Profile</p>
+          <div class=" col-lg-2">
+              <!-- About Me Button -->
+              <p class="nav-button-text btn btn-primary" onclick="location.href = '{{user.facebook_profile}}';">Facebook
+                Profile</p>
           </div>
           {% endif %}
 
           {% if user.twitter_profile %}
-          <div class="col-lg-2"> <!-- Featured Work Button -->
-            <button class="nav-button-text btn btn-primary" onclick="navSlocation.href = '{{user.twitter_profile}}';">Twitter Profile</button>
+          <div class="col-lg-2">
+            <!-- Featured Work Button -->
+            <button class="nav-button-text btn btn-primary"
+              onclick="navSlocation.href = '{{user.twitter_profile}}';">Twitter Profile</button>
           </div>
           {% endif %}
 
           {% if user.college %}
-          <div class="col-lg-2"> <!-- Resume Button -->
+          <div class="col-lg-2">
+            <!-- Resume Button -->
             <button class="nav-button-text btn btn-primary" onclick="#">{{user.college.name}}</button>
           </div>
           {% endif %}
 
-          <div class="col-lg-2"> <!-- Contact Button -->
-            <button class="nav-button-text btn btn-primary" onclick="navSiteRedirect(1)">Contact Me</button>
+          <div class="col-lg-2">
+            <!-- Contact Button -->
+            <!-- <button class="nav-button-text btn btn-primary" onclick="navSiteRedirect(1)">Contact Me</button> -->
           </div>
 
         </div>
@@ -130,15 +161,18 @@
 
 
 
-  <div id="resume-sec" class="jumbotron middle-section side-shadow" style="background-color: #1872ae;"> <!-- Resume Section -->
+  <div id="resume-sec" class="jumbotron middle-section side-shadow" style="background-color: #1872ae;">
+    <!-- Resume Section -->
 
     <div class="container" style="color: #e5e5e5;">
       <div class="row">
 
-        <div class="col-lg-7"> <!-- Left Column -->
+        <div class="col-lg-7">
+          <!-- Left Column -->
 
           {% if alumni.company or alumni.title %}
-          <div> <!-- Experience Section -->
+          <div>
+            <!-- Experience Section -->
             <h4>EXPERIENCE</h4>
             <div class="white-underline"></div>
 
@@ -157,7 +191,8 @@
           {% endif %}
 
 
-          <div> <!-- Education Section -->
+          <div>
+            <!-- Education Section -->
             <h4>EDUCATION</h4>
             <div class="white-underline"></div>
 
@@ -211,14 +246,16 @@
             </div>
             {% endif %}
           </div>
-          <br/>
+          <br />
         </div>
 
 
 
-        <div class="col-lg-5"> <!-- Right Column -->
+        <div class="col-lg-5">
+          <!-- Right Column -->
 
-          <div> <!-- Profile Section -->
+          <div>
+            <!-- Profile Section -->
             <h4>PROFILE</h4>
             <div class="white-underline"></div>
 
@@ -240,18 +277,28 @@
               </div>
             </div>
           </div>
-          <br/>
+          <br />
         </div>
       </div>
     </div>
   </div>
 
-  <div id="contact-sec" class="jumbotron middle-section side-shadow"> <!-- Contact Section -->
+  {% if request.user.is_superuser %}
+  <div id="contact-sec" class="jumbotron middle-section side-shadow">
+    <!-- Contact Section -->
     <div class="text-center">
       <h1>CONTACT ME</h1>
       <svg height="25" width="60%">
-      <style type="text/css">.st0{opacity:0.35; fill:none; stroke:#000000; stroke-linecap:round; stroke-miterlimit:10;}</style>
-      <line class="st0" x1="0" y1="8" x2="100%" y2="8"/>
+        <style type="text/css">
+          .st0 {
+            opacity: 0.35;
+            fill: none;
+            stroke: #000000;
+            stroke-linecap: round;
+            stroke-miterlimit: 10;
+          }
+        </style>
+        <line class="st0" x1="0" y1="8" x2="100%" y2="8" />
       </svg>
     </div>
 
@@ -261,28 +308,28 @@
         </div>
 
         <div class="col-sm-10">
-          <form id="gform" method="POST" action="https://script.google.com/macros/s/AKfycby6JRGrptTjjZMB3JtPQJn-YtgCE_jLilR8oBBUTGA5flLF04Zs/exec">
+          <form id="notif_form" method="post">
+            {% csrf_token %}
             <div class="form-group">
-              <label for="name">Name: </label>
-              <input id="name" name="name" placeholder="Name" class="form-control" />
+              <label for="_to">User ID:</label>
+              <input type="text" name="_to" value="{{ id }}" placeholder="{{ id }}" disabled="">
+              <input type="text" name="to" value="{{ id }}" placeholder="{{ id }}" hidden>
             </div>
 
             <div class="form-group">
-              <label for="email"><em>Your</em> Email Address:</label>
-              <input id="email" name="email" type="email" value=""
-              required placeholder="email" class="form-control" />
-              <small class="form-text text-muted">I'll Never share your email with anyone else.</small>
+              <label for="subject">Subject: </label>
+              <input id="subject" name="subject" placeholder="Subject" class="form-control" />
             </div>
 
             <div class="form-group">
               <label for="message">Message: </label>
-              <textarea id="message" name="message" rows="10"
-              placeholder="Message" class="form-control" required="true"></textarea>
+              <textarea id="message" name="message" rows="10" placeholder="Message" class="form-control"
+                required="true"></textarea>
             </div>
 
             <div class="text-center">
-              <button class="btn btn-primary">
-                Submit
+              <button class="btn btn-primary" type="submit">
+                Send Message
               </button>
             </div>
           </form>
@@ -293,187 +340,217 @@
       </div>
     </div>
   </div>
+  {% endif %}
 
 </div>
+<script>
+  $('#notif_form').submit(function (e) {
+    console.log("this ran");
+    e.preventDefault();
+    console.log($(this).serialize());
+    $.ajax({
+      data: $(this).serialize(),
+      type: 'post',
+      url: '/sendnotifs/',
+      contentType: "application/x-www-form-urlencoded",
+      success: function (res) {
+        M.toast({ html: res['message'] });
+      },
+      error: function (err) {
+        M.toast({ html: err['message'] });
+      }
+    });
+  });
+</script>
 
 
 {% endblock content %}
 
+{% block js %}
+
 <script>
-/* Javascript Code */
-// Variables
-
-// Process
-
-function navSiteRedirect(type)
-{
-	switch(type)
-	{
-		case 1:
-			$('#contact-sec').goTo();
-			break;
-
-		default:
-			alert("Redirection Error Occured!");								// If something goes wrong
-			break
-	}
-}
-
-
-// jQuery Function to scroll to a div
-(function($) {
-    $.fn.goTo = function() {
-        $('html, body').animate({
-            scrollTop: $(this).offset().top + 'px'
-        }, 'slow');
-        return this;
-    }
-})(jQuery);
-
-
-/* Main JavaScript Code */
-$(document).ready(function()
-{
+  /* Javascript Code */
   // Variables
-	var mySlides = document.getElementsByClassName("mySlides");
 
-  // Div Pages
-	slideNumCount();
-	currentDiv(1);
+  // Process
 
-	// Code Pages
-	checkCodePages(); // Already checks when going through the slides & in loadFeaturedWorkData
+  function navSiteRedirect(type) {
+    switch (type) {
+      case 1:
+        $('#contact-sec').goTo();
+        break;
 
-	for(var x=0; x<mySlides.length; x++)	// Already checks in loadFeaturedWorkData
-		addPage(0, x);
-});
-
-/* Slideshow Slides for div tags */
-
-var slideIndex = 1;
+      default:
+        alert("Redirection Error Occured!");								// If something goes wrong
+        break
+    }
+  }
 
 
-function plusDivs(n)
-{
-	showDivs(slideIndex += n);
-}
-
-function currentDiv(n)
-{
-  showDivs(slideIndex = n);
-}
-
-
-function showDivs(n)
-{
-	var i;
-	var x = document.getElementsByClassName("mySlides");
-	var dots = document.getElementsByClassName("slideNum")
+  // jQuery Function to scroll to a div
+  (function ($) {
+    $.fn.goTo = function () {
+      $('html, body').animate({
+        scrollTop: $(this).offset().top + 'px'
+      }, 'slow');
+      return this;
+    }
+  })(jQuery);
 
 
-	if (n > x.length)
-		slideIndex = 1;
+  /* Main JavaScript Code */
+  $(document).ready(function () {
+    // Variables
+    var mySlides = document.getElementsByClassName("mySlides");
 
-	if (n < 1)
-		slideIndex = x.length;
+    // Div Pages
+    slideNumCount();
+    currentDiv(1);
+
+    // Code Pages
+    checkCodePages(); // Already checks when going through the slides & in loadFeaturedWorkData
+
+    for (var x = 0; x < mySlides.length; x++)	// Already checks in loadFeaturedWorkData
+      addPage(0, x);
+
+
+    // $('#notif_form').submit(function (e) {
+    //   console.log("this ran");
+    //   e.preventDefault();
+    //   console.log($(this).serialize());
+    //   $.ajax({
+    //     data: $(this).serialize(),
+    //     type: 'post',
+    //     url: '/sendnotifs/',
+    //     contentType: "application/x-www-form-urlencoded",
+    //     success: function (res) {
+    //       console.log(res);
+    //     },
+    //     error: function (err) {
+    //       console.log(err);
+    //     }
+    //   });
+    // });
+  });
+
+  /* Slideshow Slides for div tags */
+
+  var slideIndex = 1;
+
+
+  function plusDivs(n) {
+    showDivs(slideIndex += n);
+  }
+
+  function currentDiv(n) {
+    showDivs(slideIndex = n);
+  }
+
+
+  function showDivs(n) {
+    var i;
+    var x = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("slideNum")
+
+
+    if (n > x.length)
+      slideIndex = 1;
+
+    if (n < 1)
+      slideIndex = x.length;
 
     for (i = 0; i < x.length; i++)
- 		x[i].style.display = "none";
+      x[i].style.display = "none";
 
-	for (i = 0; i < dots.length; i++)
-		dots[i].className = dots[i].className.replace(" btn-danger", "");
-
-
-	x[slideIndex-1].style.display = "block";
-	dots[slideIndex-1].className += " btn-danger";
-
-	// Check how many Code Pages on Div
-	checkCodePages();
-}
-
-function slideNumCount()
-{
-	var slides = document.getElementsByClassName("mySlides").length;
-	var slidesContainer = document.getElementsByClassName("slideNum-container")[0];
-
-	for(var i=1; i<=slides; i++)
-		slidesContainer.innerHTML += '<button class="btn slideNum" onclick="currentDiv(' + i + ')">' + i + '</button>';
-}
+    for (i = 0; i < dots.length; i++)
+      dots[i].className = dots[i].className.replace(" btn-danger", "");
 
 
-/* Pages for Code Text Area */
-var codePage = 0;
+    x[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " btn-danger";
 
-function addPage(n, index=slideIndex-1)
-{
-	// Increment the code page
-	codePage += n;
+    // Check how many Code Pages on Div
+    checkCodePages();
+  }
 
-	// Variables for the TextArea Container Class
-	var textAreaContainer = document.getElementsByClassName("mySlides")[index].children[0].getElementsByClassName("code-textarea-container");
+  function slideNumCount() {
+    var slides = document.getElementsByClassName("mySlides").length;
+    var slidesContainer = document.getElementsByClassName("slideNum-container")[0];
 
-
-	// Go through and un-display Container
-	for(var i=0; i<textAreaContainer.length; i++)
-		textAreaContainer[i].style.display = 'none';
-
-	// Make sure the index or go negative
-	if(codePage < 0)
-		codePage = textAreaContainer.length-1;
-
-	// Make sure you don't pass the index
-	if(codePage > textAreaContainer.length-1)
-		codePage = 0;
-
-	// Select the pages from 'n'
-	textAreaContainer[codePage].style.display = 'block';
-}
-
-function checkCodePages()
-{
-	// Variables for code page arrows
-	var textArea = document.getElementsByClassName("mySlides")[slideIndex-1].children[0].getElementsByClassName("code-textarea");
-	var leftArrow = document.getElementsByClassName("fa-arrow-left")[slideIndex-1].parentElement.style;
-	var rightArrow = document.getElementsByClassName("fa-arrow-right")[slideIndex-1].parentElement.style;
-
-	// Check if there are less than 1 code files
-	if(textArea.length < 2)
-	{
-		leftArrow.display = 'none';
-		rightArrow.display = 'none';
-	}
-
-	else
-	{
-		leftArrow.display = '';
-		rightArrow.display = '';
-	}
-}
-
-/* Image Modal Function */
-function modalImg(element)
-{
-	// Get the modal
-	var modal = document.getElementById('myModal');
-
-	// Get the image and insert it inside the modal - use its "alt" text as a caption
-	var modalImg = document.getElementById("img-modal");
-	var captionText = document.getElementById("caption");
+    for (var i = 1; i <= slides; i++)
+      slidesContainer.innerHTML += '<button class="btn slideNum" onclick="currentDiv(' + i + ')">' + i + '</button>';
+  }
 
 
-	modal.style.display = "block";
+  /* Pages for Code Text Area */
+  var codePage = 0;
+
+  function addPage(n, index = slideIndex - 1) {
+    // Increment the code page
+    codePage += n;
+
+    // Variables for the TextArea Container Class
+    var textAreaContainer = document.getElementsByClassName("mySlides")[index].children[0].getElementsByClassName("code-textarea-container");
+
+
+    // Go through and un-display Container
+    for (var i = 0; i < textAreaContainer.length; i++)
+      textAreaContainer[i].style.display = 'none';
+
+    // Make sure the index or go negative
+    if (codePage < 0)
+      codePage = textAreaContainer.length - 1;
+
+    // Make sure you don't pass the index
+    if (codePage > textAreaContainer.length - 1)
+      codePage = 0;
+
+    // Select the pages from 'n'
+    textAreaContainer[codePage].style.display = 'block';
+  }
+
+  function checkCodePages() {
+    // Variables for code page arrows
+    var textArea = document.getElementsByClassName("mySlides")[slideIndex - 1].children[0].getElementsByClassName("code-textarea");
+    var leftArrow = document.getElementsByClassName("fa-arrow-left")[slideIndex - 1].parentElement.style;
+    var rightArrow = document.getElementsByClassName("fa-arrow-right")[slideIndex - 1].parentElement.style;
+
+    // Check if there are less than 1 code files
+    if (textArea.length < 2) {
+      leftArrow.display = 'none';
+      rightArrow.display = 'none';
+    }
+
+    else {
+      leftArrow.display = '';
+      rightArrow.display = '';
+    }
+  }
+
+  /* Image Modal Function */
+  function modalImg(element) {
+    // Get the modal
+    var modal = document.getElementById('myModal');
+
+    // Get the image and insert it inside the modal - use its "alt" text as a caption
+    var modalImg = document.getElementById("img-modal");
+    var captionText = document.getElementById("caption");
+
+
+    modal.style.display = "block";
     modalImg.src = element.src;
     captionText.innerHTML = element.alt;
-}
+  }
 
 </script>
+{% endblock %}
 
 
 {% if editprofile %}
-  <a href="{% url 'accounts:update_alumni_profile' %}"<button>Edit Profile</button></a>
+<a href="{% url 'accounts:update_alumni_profile' %}" <button>Edit Profile</button></a>
 {% endif %}
 {% if request.user.is_staff and is_alumni and not alumni.profile_verified %}
-  <form method="post">{% csrf_token %}
-    <button type="submit">Approve verification</button>
-  </form>
+<form method="post">{% csrf_token %}
+  <button type="submit">Approve verification</button>
+</form>
 {% endif %}
