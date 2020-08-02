@@ -14,7 +14,6 @@ from accounts.views import (
 
 app_name = "accounts"
 
-
 urlpatterns = [
     path(
         "complete_faculty_profile/",

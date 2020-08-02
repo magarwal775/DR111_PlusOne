@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="totalcount">
+    <p>Total count: {{count}}</p>
+  </div>
+  <ul class="collection">
+  {% for each in registrations %}
+    {% if each.user %}
+      <li class="collection-item">{{each.user.full_name}}, Alumni, {{each.user.course.name}}</li>
+    {% else %}
+      <li class="collection-item">{{each.name}}, Outsider, {{each.email}}</li>
+    {% endif %}
+  {% endfor %}
+  </ul>
+
+{% endblock content %}

@@ -78,7 +78,7 @@
                             {{ n.to_user.first_name }} {{ n.to_user.last_name }}</h6>
                             <p>
                                 <strong>[{{ n.subject }}]</strong>
-                                {{ n.body | truncatechars:80 }}
+                                {{ n.text | truncatechars:80 }}
                                 <small> -- sent by {{ n.from_user.first_name }} {{ n.from_user.last_name }},
                                     Admin</small>
                             </p>

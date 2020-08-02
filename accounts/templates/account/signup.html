@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
+</style>
+<br>
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2">
+        <div class="col mb-4">
+          <div class="card h-100">
+            <img src="..." class="card-img-top" alt="Image Vector Here">
+            <div class="card-body">
+              <h4 class="card-title">SignUp as an Alumni</h4>
+              <!-- <p class="card-text"></p> -->
+              <form action="/signup/alumni">
+                <button type="submit">Click Here</button>
+             </form>
+            </div>
+          </div>
+        </div>
+        <div class="col mb-4">
+          <div class="card h-100">
+            <img src="..." class="card-img-top" alt="Image Vector Here">
+            <div class="card-body">
+              <h4 class="card-title">SignUp as a Faculty Member</h4>
+              <!-- <p class="card-text"></p> -->
+              <form action="/signup/faculty">
+                <button type="submit">Click Here</button>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,9 @@
+Thank you for registering!
+
+You are almost there!
+Please click the following link to confirm your account
+{{ link }}
+
+
+If you did not register, please ignore this email.
+Further replies to this mail will not be entertained.

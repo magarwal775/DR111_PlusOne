@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
+<div class="container">
+  <div class="jumbotron">
+    <h1>Login</h1>
+    <form id="contactform" method="post" action="{% url 'accounts:login' %}">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" name="username" placeholder="Username">
+      <label for="password">Password:</label>
+      <input type="password" name="password" placeholder="Password">
+      <p> </p>
+      <script src="https://www.google.com/recaptcha/api.js"></script>
+      <div class="g-recaptcha" data-sitekey="{{ GOOGLE_RECAPTCHA_SITE_KEY }}"></div>
+      <button type="submit" value="Login">Login</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block js %}
+
+{% endblock js %}

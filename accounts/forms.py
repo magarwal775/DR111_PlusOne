@@ -7,8 +7,10 @@ from college.models import College, Department, Course, Specialization
 from accounts.models import Alumni, Faculty, User
 from PIL import Image
 
+
 def year_choices():
-    return [(r,r) for r in range(1947, datetime.date.today().year+1)]
+    return [(r, r) for r in range(1947, datetime.date.today().year + 1)]
+
 
 class AlumniSignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=100)
@@ -43,8 +45,9 @@ class AlumniSignUpForm(UserCreationForm):
         alumni = Alumni.objects.create(
             user=user,
             unique_id=unique_id,
-            )
+        )
         return user
+
 
 class FacultySignUpForm(UserCreationForm):
     first_name = forms.CharField(max_length=100)
@@ -71,10 +74,9 @@ class FacultySignUpForm(UserCreationForm):
         user.save()
         system_date_joined = datetime.datetime.now()
 
-        faculty = Faculty.objects.create(
-            user=user,
-            )
+        faculty = Faculty.objects.create(user=user, )
         return user
+
 
 class CompleteAlumniProfile(forms.ModelForm):
 
@@ -95,7 +97,8 @@ class CompleteAlumniProfile(forms.ModelForm):
 
     class Meta:
         model = Alumni
-        fields = ('dob', 'course', 'department', 'specialization', 'location', 'facebook_profile', 'twitter_profile','linkedin_profile','about_me')
+        fields = ('dob', 'course', 'department', 'specialization', 'location', 'facebook_profile', 'twitter_profile',
+                  'linkedin_profile', 'about_me')
 
     def __init__(self, user, *args, **kwargs):
         self.user = user
@@ -124,9 +127,10 @@ class CompleteAlumniProfile(forms.ModelForm):
         user.linkedin_profile = self.cleaned_data['linkedin_profile']
         user.about_me = self.cleaned_data['about_me']
         user.location = self.cleaned_data['location']
-        user.profile_complete=1
+        user.profile_complete = 1
         alumni.save()
         user.save()
+
 
 class CompleteFacultyProfile(forms.ModelForm):
 
@@ -176,9 +180,10 @@ class CompleteFacultyProfile(forms.ModelForm):
         user.twitter_profile = self.cleaned_data['twitter_profile']
         user.linkedin_profile = self.cleaned_data['linkedin_profile']
         user.about_me = self.cleaned_data['about_me']
-        user.profile_complete=1
+        user.profile_complete = 1
         faculty.save()
         user.save()
+
 
 class AccountAuthenticationForm(forms.ModelForm):
 
@@ -190,13 +195,13 @@ class AccountAuthenticationForm(forms.ModelForm):
 
     def clean(self):
         if self.is_valid():
-            email=self.cleaned_data['email']
-            password=self.cleaned_data['password']
+            email = self.cleaned_data['email']
+            password = self.cleaned_data['password']
             if not authenticate(email=email, password=password):
                 raise forms.ValidationError("Invalid Login")
 
-class UpdateAlumniProfile(forms.ModelForm):
 
+class UpdateAlumniProfile(forms.ModelForm):
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email', 'college', 'dob')

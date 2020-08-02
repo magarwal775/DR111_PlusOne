@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="{% static 'chat/js/materialize.js' %}"></script>
+</head>
+
+<body>
+    {% if success %}
+    <div
+        style="background-color:#fff;margin:0 auto 0 auto;padding:30px 0 30px 0;color:#4f565d;font-size:13px;line-height:20px;font-family:'Helvetica Neue',Arial,sans-serif;text-align:left;">
+        <center>
+            <table style="width:550px;text-align:center">
+                <tbody>
+                    <tr>
+                        <td colspan="2" style="padding:30px 0;">
+                            <p
+                                style="color:#1d2227;line-height:28px;font-size:22px;margin:12px 10px 20px 10px;font-weight:400;">
+                                Hi there, it's great to meet and connect with you!</p>
+                            <p style="margin:0 10px 10px 10px;padding:0;">We are happy to get your email address right.
+                            </p>
+                            <p>
+                                <a style="display:inline-block;text-decoration:none;padding:15px 20px;background-color:#2baaed;border:1px solid #2baaed;border-radius:3px;color:#FFF;font-weight:bold;"
+                                    href="/" target="_blank">Let's get started</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="padding:30px 0 0 0;border-top:1px solid #e9edee;color:#9b9fa5">
+                            If you have any questions you can contact us at <a
+                                style="color:#666d74;text-decoration:none;" href="/" target="_blank">support@ats.org</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </div>
+    {% else %}
+    Error, invalid token! Please contact admin. Thanks and sorry for any inconveniences caused.
+    {% endif %}
+</body>
+
+</html>

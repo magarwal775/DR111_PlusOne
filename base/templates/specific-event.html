@@ -60,7 +60,7 @@ h2{
     max-width: 600px;
     border-radius: 30px;
     padding: 5px;
-   
+
   }
 </style>
 
@@ -72,7 +72,7 @@ h2{
        <div class="event-title">
          <h1> {{event.title}}</h1>
         </div>
-       
+
         {% if event.image %}
        <p class="body-image"> <img class="responsive" src="{{event.image.url}}" alt="image cap"></p>
         {% endif %}
@@ -84,11 +84,27 @@ h2{
           <h2>Venue: {{event.venue}}</h2>
         </div>
         <div class="event-body">
-          </h2>{{event.body}}<h2>
+          <h5>{{event.body}}</h5>
         </div>
       </div>
     </div>
   </div>
+  {% if not request.user.is_authenticated or request.user.is_alumni %}
+  <div class="register">
+    {% if eventregistered %}
+      <p>You are registered for the event!</p>
+    {% else %}
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit">Register</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  {% if request.user.is_faculty or request.user.is_staff or request.user.is_superuser %}
+  <button onclick="location.href = '{% url 'base:eventregistrationlist' event.id %}';">Event Registration List</button>
+  {% endif %}
   <div id="disqus_thread"></div>
   <script>
     /**

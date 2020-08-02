@@ -1,0 +1,100 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang=en>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+  <script src="{% static 'chat/js/materialize.js' %}"></script>
+</head>
+
+<body>
+  {% include 'snippets/header.html' %}
+  <link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
+  <div class="row">
+    <div class="col-md-8 col-sm-10 col-12">
+      <div class="container">
+        <h2>Welcome {{request.user}}! Complete your profile to continue!</h2>
+      </div>
+      <form method="post" id="regForm" novalidate>
+        {% csrf_token %}
+        <div class="input-field col s12">Date of Birth
+          <input type="text" name="dob" required_id="id_dob" class="datepicker">
+        </div>
+        <div class="input-field col s12">Course
+          {{form.course}}
+        </div>
+        <div class="input-field col s12">Department
+          {{form.department}}
+        </div>
+        <div class="input-field col s12">Specialization
+          {{form.specialization}}
+        </div>
+        <div class="input-field col s12">College Joined Year
+          {{form.college_joined_year}}
+        </div>
+        <div class="input-field col s12">Research Interest
+          {{form.research_interest}}
+        </div>
+        <div class="input-field col s12">About Yourself
+          {{form.about_me}}
+        </div>
+        <div class="input-field col s12">Facebook Profile Link
+          {{form.facebook_profile}}
+        </div>
+        <div class="input-field col s12">Twitter Profile Link
+          {{form.twitter_profile}}
+        </div>
+        <div class="input-field col s12">Linkedin Profile Link
+          {{form.linkedin_profile}}
+        </div>
+        <br>
+        <button type="submit">Submit</button>
+        {% for field in form %}
+        {% for error in field.errors %}
+        <p style="color: red;">{{error}}</p>
+        {% endfor %}
+        {% endfor %}
+
+        {% if login_form.non_field_errors %}
+        <div style="color:red;">
+          <p>{{login_form.non_field_errors}}</p>
+        </div>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+  {% include 'snippets/footer.html' %}
+</body>
+
+</html>
+
+<script>
+  $(document).ready(function () {
+    $('.datepicker').datepicker({
+      format: 'yyyy-mm-dd',
+      yearRange: [1947, 2020]
+    });
+    $('.materialboxed').materialbox();
+    $('.sidenav').sidenav({
+      edge: 'right',
+    });
+
+    $('select').formSelect();
+    $('.slider').slider();
+
+    function dest(d) {
+      let hash = CryptoJS.MD5(d).toString();
+      window.location.href = "/chat/" + hash;
+    }
+  });
+</script>

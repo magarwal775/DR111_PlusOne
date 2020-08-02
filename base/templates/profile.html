@@ -9,6 +9,12 @@
     href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
@@ -120,7 +126,7 @@
           {% if user.linkedin_profile %}
           <div class="col-lg-2">
             <!-- LinkedIn Button -->
-            <button class="nav-button-text btn btn-primary" onclick="location.href = '{{user.linkedin_profile}}';"">LinkedIn Profile</button>
+            <button class="nav-button-text btn btn-primary" onclick="location.href = '{{user.linkedin_profile}}';">LinkedIn Profile</button>
           </div>
           {% endif %}
 
@@ -341,6 +347,14 @@
     </div>
   </div>
   {% endif %}
+  {% if editprofile %}
+  <a href="{% url 'accounts:update_alumni_profile' %}" <button>Edit Profile</button></a>
+  {% endif %}
+  {% if request.user.is_staff and is_alumni and not alumni.profile_verified %}
+  <form method="post">{% csrf_token %}
+    <button type="submit">Approve verification</button>
+  </form>
+  {% endif %}
 
 </div>
 <script>
@@ -544,13 +558,3 @@
 
 </script>
 {% endblock %}
-
-
-{% if editprofile %}
-<a href="{% url 'accounts:update_alumni_profile' %}" <button>Edit Profile</button></a>
-{% endif %}
-{% if request.user.is_staff and is_alumni and not alumni.profile_verified %}
-<form method="post">{% csrf_token %}
-  <button type="submit">Approve verification</button>
-</form>
-{% endif %}

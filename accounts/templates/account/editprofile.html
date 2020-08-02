@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <b>Edit Profile</b>
+        </div>
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+                {% for field in form %}
+                <p>
+                  <b>{{field.label_tag}}</b>
+                  {{field}}
+                    <br>
+                  {% if field.help_text %}
+                    <small style="color: grey;">{{field.help_text}}</small>
+                  {% endif %}
+
+                </p>
+              {% endfor %}
+                <button value="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

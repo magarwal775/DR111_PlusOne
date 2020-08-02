@@ -16,6 +16,8 @@ from django_email_verification import sendConfirm
 from django.conf import settings
 from django_email_verification.Confirm import verifyToken
 from django_email_verification.errors import NotAllFieldCompiled
+from decouple import config
+import requests
 
 
 class alumni_signup_view(CreateView):
@@ -102,21 +104,31 @@ def logout_view(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        user = authenticate(username=username, password=password)
-        if user:
-            if user.is_active:
-                login(request, user)
-                return redirect("base:home")
+        recaptcha_response = request.POST.get("g-recaptcha-response")
+        data = {
+            "secret": config("GOOGLE_RECAPTCHA_SECRET_KEY"),
+            "response": recaptcha_response,
+        }
+        r = requests.post("https://www.google.com/recaptcha/api/siteverify", data=data)
+        result = r.json()
+        if result['success']:
+            username = request.POST.get("username")
+            password = request.POST.get("password")
+            user = authenticate(username=username, password=password)
+            if user:
+                if user.is_active:
+                    login(request, user)
+                    return redirect("base:home")
+                else:
+                    return HttpResponse("Your account was inactive.")
             else:
-                return HttpResponse("Your account was inactive.")
+                print("Someone tried to login and failed.")
+                print("They used username: {} and password: {}".format(username, password))
+                return HttpResponse("Invalid login details given")
         else:
-            print("Someone tried to login and failed.")
-            print("They used username: {} and password: {}".format(username, password))
-            return HttpResponse("Invalid login details given")
+            return HttpResponse("Invalid Captcha")
     else:
-        return render(request, "account/login.html")
+        return render(request, "account/login.html", {'GOOGLE_RECAPTCHA_SITE_KEY': config("GOOGLE_RECAPTCHA_SITE_KEY")})
 
 
 def update_alumni_profile(request):

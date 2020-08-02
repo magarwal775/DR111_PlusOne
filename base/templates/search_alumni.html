@@ -18,7 +18,10 @@
 <body>
 	{% include 'snippets/header.html' %}
 	<main>
-		<div class="row">
+		<br>
+		<div class="row container z-depth-5">
+			<br>
+			<h4 class="center-align"><i class="small material-icons">search</i>&nbsp; &nbsp;Search Almunis</h4>
 			<form class="col s12" method="GET">
 				<div class="row">
 					<div class="input-field col s12 m3 l3">
@@ -65,8 +68,9 @@
 				</div>
 			</form>
 		</div>
-		<div class="conatiner">
-			<div class="row">
+		{% if filter.qs %}
+		<div class="container z-depth-5">
+			<ul class="collection">
 				{% for user in filter.qs %}
 				<!-- <a href="profile/{{user.first_name}}/{{user.id}}">
 				<div class="profile_conteiner col-sm-4 col-md-3">
@@ -89,8 +93,8 @@
 					</div>
 				</div>
 			</a> -->
-				<div class="col s12 m4 l4">
-					<div class="card">
+				<!-- <div class="col s12 m4 l4 offset-s2 center-align">
+					<div class="card small">
 						<div class="card-image">
 							<img src="{{ user.profile_photo.url }}" class="activator">
 							<span class="card-title activator">{{ user.first_name }} {{ user.last_name }}</span>
@@ -108,13 +112,22 @@
 							<p>{{ user.about_me }}</p>
 						</div>
 					</div>
-				</div>
-
+				</div> -->
+				<li class="collection-item avatar">
+					<img src="{{user.profile_photo.url}}" class="circle materialboxed">
+					<span class="title">{{user.first_name}} {{user.last_name}}</span>
+					<p>{{user.college.name}}<br>{{user.department.name}}</p>
+					<a href="/profile/{{user.first_name}}/{{user.id}}" class="secondary-content"><i
+							class="material-icons">arrow_forward</i></a>
+				</li>
 				{% empty %}
-				<p class="center-align">No results found</p>
+				<li>
+					<p class="center-align">No results found</p>
+				</li>
 				{% endfor %}
-			</div>
+			</ul>
 		</div>
+		{% endif %}
 	</main>
 	{% include 'snippets/footer.html' %}
 	<script>

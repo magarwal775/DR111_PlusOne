@@ -1,11 +1,12 @@
 from django.urls import path
 
-from base.views import(
+from base.views import (
     base,
     home,
     allnews,
     allevents,
     allstory,
+    allGallery,
     speceficevent,
     speceficnews,
     profile,
@@ -19,10 +20,12 @@ from base.views import(
     addevent,
     send_p2pnotifs,
     notifications,
-    notif_read
+    notif_read,
+    eventregistration,
+    eventregistrationlist,
 )
 
-app_name='base'
+app_name = 'base'
 
 urlpatterns = [
     path('', home, name="home"),
@@ -32,15 +35,18 @@ urlpatterns = [
     path('story/<int:story_id>', speceficstory, name="speceficstory"),
     path('news', allnews, name="allnews"),
     path('events', allevents, name="allevents"),
-    path('stories',allstory,name="allstory"),
+    path('stories', allstory, name="allstory"),
+    path('gallery', allGallery, name="allGallery"),
     path('searchalumni', searchalumni, name="searchalumni"),
     path('autocomplete', autocomplete, name="autocomplete"),
-    path('jobsection', jobsection,name="jobsection"),
+    path('jobsection', jobsection, name="jobsection"),
     path('verifialumni', verification_alumni, name="verification_alumni"),
     path('addstory', addstory, name="addstory"),
     path('addevent', addevent, name="addevent"),
     path('addnews', addnews, name="addnews"),
     path('sendnotifs/', send_p2pnotifs, name="sendnotifs"),
     path('notifications/', notifications, name="notifications"),
-    path('notifsread/',notif_read, name="readnotifs")
+    path('notifsread/', notif_read, name="readnotifs"),
+    path('eventregistrationlist/<int:event_id>', eventregistrationlist, name="eventregistrationlist"),
+    path('eventregistration/<int:event_id>', eventregistration, name="eventregistration"),
 ]

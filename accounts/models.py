@@ -5,18 +5,18 @@ from college.models import College, Department, Course, Specialization
 from django.db.models.signals import pre_save, post_delete
 from django.utils.text import slugify
 
+
 def upload_user_image_location(instance, filename):
-    file_path = 'user/{user_id}/{filename}'.format(
-        user_id=str(instance.id),
-        filename=filename
-    )
+    file_path = 'user/{user_id}/{filename}'.format(user_id=str(instance.id), filename=filename)
     return file_path
+
 
 class Position(models.Model):
     position_name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.position_name
+
 
 class User(AbstractUser):
     is_verified = models.BooleanField(default=False)
@@ -43,6 +43,7 @@ class User(AbstractUser):
     phone = models.CharField(max_length=20, null=True, blank=True)
     about_me = models.TextField(null=True, blank=True)
 
+
 class Alumni(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     year_of_passing = models.IntegerField(null=True)
@@ -54,9 +55,8 @@ class Alumni(models.Model):
     resume = models.URLField(max_length=1000, null=True, blank=True)
 
     def __str__(self):
-        return (
-            self.user.full_name + " " + self.unique_id
-        )
+        return (self.user.full_name + " " + self.unique_id)
+
 
 class Faculty(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -64,21 +64,17 @@ class Faculty(models.Model):
     research_interest = models.CharField(max_length=300, null=True)
     unique_id = models.CharField(unique=True, max_length=200)
     is_admin = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
     def __str__(self):
-        return (
-            self.user.full_name
-            + ", "
-            + self.user.department.name
-            + ", "
-            + self.user.college.name
-        )
+        return (self.user.full_name + ", " + self.user.department.name + ", " + self.user.college.name)
+
 
 def pre_save_User(sender, instance, *args, **kwargs):
     if not instance.full_name:
         instance.full_name = slugify(instance.first_name + instance.last_name)
+
 
 pre_save.connect(pre_save_User, sender=User)
