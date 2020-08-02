@@ -40,7 +40,7 @@ class User(AbstractUser):
     facebook_profile = models.URLField(max_length=1000, null=True, blank=True)
     twitter_profile = models.URLField(max_length=1000, null=True, blank=True)
     linkedin_profile = models.URLField(max_length=1000, null=True, blank=True)
-    location = LocationField()
+    location = LocationField(null=True, blank=True)
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
     about_me = models.TextField(null=True, blank=True)
