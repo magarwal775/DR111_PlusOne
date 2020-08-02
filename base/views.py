@@ -28,6 +28,9 @@ from django.contrib.auth.decorators import login_required
 def base(request):
     return render(request, "base.html")
 
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 
 def home(request):
     user = request.user

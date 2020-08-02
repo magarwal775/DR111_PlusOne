@@ -23,6 +23,7 @@ from base.views import (
     notif_read,
     eventregistration,
     eventregistrationlist,
+    dashboard,
 )
 
 app_name = 'base'
@@ -49,4 +50,5 @@ urlpatterns = [
     path('notifsread/', notif_read, name="readnotifs"),
     path('eventregistrationlist/<int:event_id>', eventregistrationlist, name="eventregistrationlist"),
     path('eventregistration/<int:event_id>', eventregistration, name="eventregistration"),
+    path('dashboard', dashboard, name="dashboard")
 ]
