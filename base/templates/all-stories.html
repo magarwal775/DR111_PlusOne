@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .story-title {
+    text-align: center;
+    margin-bottom: 5vh;
+  }
+
+  .card-title {
+    font-family: Georgia, Helvetica, Arial, sans-serif;
+  }
+
+  .card-content {
+    overflow: hidden;
+  }
+</style>
+<div class="story-title">
+  <h2>Stories </h2>
+</div>
+<div class="container">
+
+  {% for story in stories %}
+  <div class="card grey lighten-5 z-depth-4">
+    <div class="card-content black-text">
+      <span class="card-title">{{story.title}}</span>
+      <span>By {{story.user}} on {{story.date_time}}</span>
+      <p class="story-body truncate">{{story.body}}</p>
+    </div>
+    <div class="card-action orange">
+      <a href="{% url 'base:speceficstory' story.id %}" class="white-text">Read More</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock content %}

@@ -100,6 +100,9 @@
     <li><a href="/profile/{{ request.user.username }}/{{ request.user.id }}"><i
           class="material-icons">account_circle</i>Profile</a></li>
     <li><a href="/chat/general"><i class="material-icons">chat</i>Group Chat</a></li>
+    <li><a href="/notifications/"><i class="material-icons">notifications</i>Notifications<span
+          class="new badge">{{ new.count }}</span></a></li>
+    <li>
     <li>
       <div class="divider"></div>
     </li>

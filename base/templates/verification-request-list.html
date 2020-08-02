@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+  #info-block{
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 25px;
+  }
+  #info-block > div.section-header{
+    padding-left: 25px;
+    padding-right: 25px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 25px;
+    padding-bottom: 10px;
+  }
+  #info-block > div.main-info{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 20px;
+  }
+  .emptylist{
+    text-align: center;
+    padding:top: 25px;
+  }
+</style>
+{% if number %}
+  <div class="emptylist">
+    <h4>No Unverified Accounts!</h4>
+  </div>
+{% endif %}
+{% for each in account %}
+<div id="info-block" class="card">
+  <div class="section-header">
+    <h5><b>{{each.user.college.name}}</b></h5>
+  </div>
+  <div class="main-info">
+    {% if each.profile_photo %}
+    <img class="profilephoto" url="{{each.user.profile_photo.url}}">
+    {% endif %}
+    <a href="{% url 'base:profile' each.user.first_name each.user.id %}">
+      <p class="name" style="color:black">Full Name: {{each.user.full_name}}</p>
+      <p clas="college" style="color:black">College: {{each.user.college.name}}</p>
+      <p class="department" style="color:black">Department: {{each.user.department.name}}</p>
+      <p class="uniqueid" style="color:black">Unique ID: {{each.unique_id}}</p>
+      <p class="yearofpassing" style="color:black">Year of Passing: {{each.year_of_passing}}</p>
+      <p class="dob" style="color:black">Date of Birth: {{each.user.dob}}</p>
+    </a>
+  </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
