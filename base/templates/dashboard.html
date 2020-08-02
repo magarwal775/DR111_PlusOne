@@ -46,8 +46,9 @@
 
     <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
-
-            {% block content %}{% endblock content %}
+          {% include 'snippets/index.html' %}
+            {% block content %}
+            {% endblock content %}
 
         </div>
     </div>
