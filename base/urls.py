@@ -25,7 +25,8 @@ from base.views import (
     eventregistrationlist,
     dashboard,
     analytics,
-    recommend,
+    # recommend,
+    analytics_dataset
 )
 
 app_name = 'base'
@@ -54,5 +55,6 @@ urlpatterns = [
     path('eventregistration/<int:event_id>', eventregistration, name="eventregistration"),
     path('dashboard', dashboard, name="dashboard"),
     path('analytics', analytics, name="analytics"),
-    path('recommend', recommend, name="recommend"),
+    path('analytics_dataset/', analytics_dataset, name="analytics_dataset"),
+    # path('recommend', recommend, name="recommend"),
 ]
