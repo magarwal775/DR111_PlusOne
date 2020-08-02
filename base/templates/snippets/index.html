@@ -73,7 +73,8 @@
                         <div class="col-xl-8 col-md-6">
                             <div class="card Recent-Users">
                                 <div class="card-header">
-                                    <h5>Approvals Pending: {{pendingapprovals}}</h5>
+                                    <h5 style="display:inline">Approvals Pending: {{pendingapprovals}}</h5>
+                                    <a href="{% url 'base:verification_alumni' %}"><p style="float:right">View all</p></a>
                                 </div>
                                 <div class="card-block px-0 py-3">
                                     <div class="table-responsive">
@@ -89,7 +90,7 @@
                                                     <td>
                                                         <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{each.user.system_date_joined}}</h6>
                                                     </td>
-                                                    <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a href="#!" class="label theme-bg text-white f-12">Approve</a></td>
+                                                    <td><a href="/profile/{{each.user.first_name}}/{{each.user.id}}" class="label theme-bg2 text-white f-12">View Profile</a></td>
                                                   </tr>
                                                 {% endfor %}
                                             </tbody>

@@ -36,7 +36,7 @@ def dashboard(request):
     stories = Story.objects.filter(college=user.college or not college)
     gallery = Gallery.objects.filter(college=user.college or not college)
     carousel = Carousel.objects.filter(college=user.college or not college)
-    approvals = Alumni.objects.filter(user__college=user.college)
+    approvals = Alumni.objects.filter(user__college=user.college).filter(profile_verified=0)
     if approvals.count()>5:
         context["approvals"] = approvals
     else:
@@ -315,7 +315,10 @@ def jobsection(request):
 
 def verification_alumni(request):
     context = {}
-    account = Alumni.objects.filter(profile_verified=0)
+    user = request.user
+    account = Alumni.objects.filter(user__college=user.college).filter(profile_verified=0)
+    pendingapprovals = account.count()
+    context["pendingapprovals"] = pendingapprovals
     if account.count() < 1:
         context["number"] = 1
     context["account"] = account
