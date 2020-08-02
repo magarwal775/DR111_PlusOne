@@ -20,6 +20,8 @@
     crossorigin="anonymous"></script>
   <link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
   {% load mapbox_location_field_tags %}
   {% location_field_includes %}
@@ -27,10 +29,33 @@
 </head>
 
 <body>
+  <div class="background">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+ </div>
   <main class="content" role="content">
     <section id="section1">
-      <div class="container-fluid col-md-6 col-md-offset-3">
+      <div class="container-fluid col-md-6 col-md-offset-3 gradient-box">
         <form id="regForm" method="POST" enctype="multipart/form-data" novalidate>{% csrf_token %}
+          <a href="/">Go Back</a>
           <h1>Sign Up as {{user_type}}</h1>
           <div class="tab">
             <p>Username:
