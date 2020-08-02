@@ -36,6 +36,12 @@ def dashboard(request):
     stories = Story.objects.filter(college=user.college or not college)
     gallery = Gallery.objects.filter(college=user.college or not college)
     carousel = Carousel.objects.filter(college=user.college or not college)
+    approvals = Alumni.objects.filter(user__college=user.college)
+    if approvals.count()>5:
+        context["approvals"] = approvals
+    else:
+        context["approvals"] = approvals[0:5]
+    context["pendingapprovals"] = approvals.count()
     return render(request, "dashboard.html", context)
 
 
