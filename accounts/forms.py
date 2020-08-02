@@ -6,6 +6,7 @@ import datetime
 from college.models import College, Department, Course, Specialization
 from accounts.models import Alumni, Faculty, User
 from PIL import Image
+from mapbox_location_field.forms import LocationField
 
 
 def year_choices():
@@ -19,6 +20,7 @@ class AlumniSignUpForm(UserCreationForm):
     unique_id = forms.CharField(max_length=200)
     email = forms.EmailField()
     image = forms.ImageField()
+    location = LocationField()
     phone = forms.CharField(max_length=20)
 
     class Meta(UserCreationForm.Meta):
@@ -34,6 +36,7 @@ class AlumniSignUpForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.college = College.objects.get(name=self.cleaned_data['college'])
         user.profile_photo = self.cleaned_data['image']
+        user.location = self.cleaned_data['location']
         user.phone = self.cleaned_data['phone']
         user.save()
         unique_id = self.cleaned_data['unique_id']

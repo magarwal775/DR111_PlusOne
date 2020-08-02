@@ -4,6 +4,8 @@ from django.conf import settings
 from college.models import College, Department, Course, Specialization
 from django.db.models.signals import pre_save, post_delete
 from django.utils.text import slugify
+from mapbox_location_field.models import LocationField
+
 
 
 def upload_user_image_location(instance, filename):
@@ -38,7 +40,7 @@ class User(AbstractUser):
     facebook_profile = models.URLField(max_length=1000, null=True, blank=True)
     twitter_profile = models.URLField(max_length=1000, null=True, blank=True)
     linkedin_profile = models.URLField(max_length=1000, null=True, blank=True)
-    location = models.CharField(max_length=200, null=True, blank=True)
+    location = LocationField()
     position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
     phone = models.CharField(max_length=20, null=True, blank=True)
     about_me = models.TextField(null=True, blank=True)
