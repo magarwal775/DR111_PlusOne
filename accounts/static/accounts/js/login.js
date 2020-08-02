@@ -87,3 +87,7 @@ update = function () {
     requestAnimationFrame(update);
 };
 requestAnimationFrame(update);
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

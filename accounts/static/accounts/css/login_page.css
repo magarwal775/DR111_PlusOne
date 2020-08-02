@@ -1,11 +1,11 @@
-@import url(https://fonts.googleapis.com/css?family=Varela);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
 html {
     height: 100%;
 }
 
 body {
     background: #f2f2f2;
-    font-family: 'Varela', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 14px;
     line-height: 1.5;
     color: #333;
