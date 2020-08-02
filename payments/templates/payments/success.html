@@ -1,0 +1,37 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="https://picsum.photos/800/">
+    </div>
+</div>
+<div class="section white">
+    <div class="row container">
+        <h2 class="header blue-text"> Thank You!</h2>
+        <p class="grey-text text-darken-3 lighten-3">Thank you for your kind donation! You will recieve a receipt on
+            your Gmail account very soon!</p>
+        <p class="grey-text text-darken-3 lighten-3">
+            Your Transaction details:<hr/>
+            
+            Transaction-ID : {{ transaction_id }}<hr/>
+            Amount: {{ amount_total }} {{ currency }}<hr/>
+            Date: {{ date_val|date:"D d M Y" }} {{ date_val|time:"H:i"}}<hr/>
+        </p>
+    </div>
+</div>
+<div class="parallax-container">
+    <div class="parallax">
+        <img src="https://picsum.photos/800/">
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(function () {
+        $('.parallax').parallax();
+    });
+</script>
+{% endblock %}
