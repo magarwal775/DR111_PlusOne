@@ -29,7 +29,14 @@ def base(request):
     return render(request, "base.html")
 
 def dashboard(request):
-    return render(request, "dashboard.html")
+    user = request.user
+    context = {}
+    events = Event.objects.filter(college=user.college or not college)
+    news = News.objects.filter(college=user.college or not college)
+    stories = Story.objects.filter(college=user.college or not college)
+    gallery = Gallery.objects.filter(college=user.college or not college)
+    carousel = Carousel.objects.filter(college=user.college or not college)
+    return render(request, "dashboard.html", context)
 
 
 def home(request):
