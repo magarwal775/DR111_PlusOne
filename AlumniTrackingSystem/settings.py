@@ -189,3 +189,4 @@ EMAIL_MAIL_HTML = os.path.join(os.path.join(os.path.join(BASE_DIR, 'accounts'), 
 EMAIL_MAIL_PLAIN = os.path.join(os.path.join(os.path.join(BASE_DIR, 'accounts'), 'templates'),'mail_body.txt')
 EMAIL_PAGE_TEMPLATE = EMAIL_MAIL_PLAIN = os.path.join(os.path.join(os.path.join(BASE_DIR, 'accounts'), 'templates'),'confirm_template.html')
 EMAIL_PAGE_DOMAIN = 'http://localhost:8000/'
+MAPBOX_KEY = config('MAPBOX_KEY')
