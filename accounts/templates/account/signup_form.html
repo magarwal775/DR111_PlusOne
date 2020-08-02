@@ -3,165 +3,178 @@
 <html lang="en">
 
 <head>
-  {% load mapbox_location_field_tags %}
-  {% location_field_includes %}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign-Up!</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
     crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
   <link href="{% static 'accounts/css/login.css' %}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+  {% load mapbox_location_field_tags %}
+  {% location_field_includes %}
+  {% include_jquery %}
 </head>
 
 <body>
-  <form id="regForm" method="POST" enctype="multipart/form-data" novalidate>{% csrf_token %}
-    <h1>Sign Up as {{user_type}}</h1>
-    <div class="tab">
-      <p>Username:
-        {{form.username}}
-      </p>
-      <small style="color: grey;">*Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
-      <br>
-      <p>Password:
-        {{form.password1}}
-      </p>
-      <small style="color: grey;">
-        <ul>
-          <li>Your password can’t be too similar to your other personal information.</li>
-          <li>Your password must contain at least 8 characters.</li>
-          <li>Your password can’t be a commonly used password.</li>
-          <li>Your password can’t be entirely numeric.</li>
-        </ul>
-      </small>
-      <br>
-      <p>Confirm Password:
-        {{form.password2}}
-      </p>
-      {% for field in form %}
-      {% for error in field.errors %}
-      <p style="color: red;">{{error}}</p>
-      {% endfor %}
-      {% endfor %}
+  <main class="content" role="content">
+    <section id="section1">
+      <form id="regForm" method="POST" enctype="multipart/form-data" novalidate>{% csrf_token %}
+        <h1>Sign Up as {{user_type}}</h1>
+        <div class="tab">
+          <p>Username:
+            {{form.username}}
+          </p>
+          <small style="color: grey;">*Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.</small>
+          <br>
+          <p>Password:
+            {{form.password1}}
+          </p>
+          <small style="color: grey;">
+            <ul>
+              <li>Your password can’t be too similar to your other personal information.</li>
+              <li>Your password must contain at least 8 characters.</li>
+              <li>Your password can’t be a commonly used password.</li>
+              <li>Your password can’t be entirely numeric.</li>
+            </ul>
+          </small>
+          <br>
+          <p>Confirm Password:
+            {{form.password2}}
+          </p>
+          {% for field in form %}
+          {% for error in field.errors %}
+          <p style="color: red;">{{error}}</p>
+          {% endfor %}
+          {% endfor %}
 
-      {% if login_form.non_field_errors %}
-      <div style="color:red;">
-        <p>{{login_form.non_field_errors}}</p>
-      </div>
-      {% endif %}
-    </div>
+          {% if login_form.non_field_errors %}
+          <div style="color:red;">
+            <p>{{login_form.non_field_errors}}</p>
+          </div>
+          {% endif %}
+        </div>
 
-    <div class="tab">
-      <p>First Name
-        {{form.first_name}}
-      </p>
-      <p>Last Name
-        {{form.last_name}}
-      </p>
-      <p>Phone Number
-        {{form.phone}}
-      </p>
-      <p>Location
-        {{form.location}}
-      </p>
+        <div class="tab">
+          <p>First Name
+            {{form.first_name}}
+          </p>
+          <p>Last Name
+            {{form.last_name}}
+          </p>
+          <p>Phone Number
+            {{form.phone}}
+          </p>
+          <p>Location
+            {{form.location}}
+          </p>
+          {{ form.media }}
+        </div>
+
+        <div class="tab">
+          <p>College
+            {{form.college}}
+          </p>
+        </div>
+        <div class="tab">
+          {% if form.unique_id %}
+          <p>Unique ID
+            {{form.unique_id}}
+          </p>
+          {% endif %}
+          <p>Email ID
+            {{form.email}}
+          </p>
+          <p>Profile Photo
+            {{ form.image }}
+          </p>
+          <button type="submit">Sign up</button>
+
+        </div>
+        <div style="overflow:auto;">
+          <div style="float:right;">
+            <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+            <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+          </div>
+        </div>
+        <!-- Circles which indicates the steps of the form: -->
+        <div style="text-align:center;margin-top:40px;">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+        </div>
+      </form>
       {{ form.media }}
-    </div>
-
-    <div class="tab">
-      <p>College
-        {{form.college}}
-      </p>
-    </div>
-    <div class="tab">
-      {% if form.unique_id %}
-      <p>Unique ID
-        {{form.unique_id}}
-      </p>
-      {% endif %}
-      <p>Email ID
-        {{form.email}}
-      </p>
-      <p>Profile Photo
-        {{ form.image }}
-      </p>
-      <button type="submit">Sign up</button>
-
-    </div>
-    <div style="overflow:auto;">
-      <div style="float:right;">
-        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
-      </div>
-    </div>
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
-  </form>
-
-  <script>
-    var currentTab = 0;
-    showTab(currentTab);
-
-    function showTab(n) {
-      var x = document.getElementsByClassName("tab");
-      x[n].style.display = "block";
-      if (n == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-      } else {
-        document.getElementById("prevBtn").style.display = "inline";
-      }
-      if (n == (x.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "-";
-      } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-      }
-      fixStepIndicator(n)
-    }
-
-    function nextPrev(n) {
-      var x = document.getElementsByClassName("tab");
-      if (n == 1 && !validateForm()) return false;
-      x[currentTab].style.display = "none";
-      currentTab = currentTab + n;
-      if (currentTab >= x.length) {
-        document.getElementById("regForm").submit();
-        return false;
-      }
-      showTab(currentTab);
-    }
-
-    function validateForm() {
-      var x, y, i, valid = true;
-      x = document.getElementsByClassName("tab");
-      y = x[currentTab].getElementsByTagName("input");
-      for (i = 0; i < y.length; i++) {
-        if (y[i].value == "") {
-          y[i].className += " invalid";
-          valid = false;
-        }
-      }
-      if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-      }
-    }
-
-    function fixStepIndicator(n) {
-      var i, x = document.getElementsByClassName("step");
-      for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-      }
-      x[n].className += " active";
-    }
-  </script>
-
+    </section>
+  </main>
 </body>
+<script>
+  var currentTab = 0;
+  showTab(currentTab);
+
+  function validateForm() {
+    var x, y, i, valid = true;
+    x = document.getElementsByClassName("tab");
+    y = x[currentTab].getElementsByTagName("input");
+    for (i = 0; i < y.length; i++) {
+      if (y[i].value === "") {
+        console.log(y[i].value, y[i].value==="")
+        y[i].className += " invalid";
+        valid = false;
+      }
+    }
+    if (valid) {
+      document.getElementsByClassName("step")[currentTab].className += " finish";
+    }
+    return valid;
+  }
+
+  function showTab(n) {
+    var x = document.getElementsByClassName("tab");
+    x[n].style.display = "block";
+    if (n == 0) {
+      document.getElementById("prevBtn").style.display = "none";
+    } else {
+      document.getElementById("prevBtn").style.display = "inline";
+    }
+    if (n == (x.length - 1)) {
+      document.getElementById("nextBtn").innerHTML = "-";
+    } else {
+      document.getElementById("nextBtn").innerHTML = "Next";
+    }
+    fixStepIndicator(n)
+  }
+
+  function nextPrev(n) {
+    var x = document.getElementsByClassName("tab");
+    // if (n == 1 && !validateForm()) return false;
+    x[currentTab].style.display = "none";
+    currentTab = currentTab + n;
+    if (currentTab >= x.length) {
+      document.getElementById("regForm").submit();
+      return false;
+    }
+    showTab(currentTab);
+  }
+
+  function fixStepIndicator(n) {
+    var i, x = document.getElementsByClassName("step");
+    for (i = 0; i < x.length; i++) {
+      x[i].className = x[i].className.replace(" active", "");
+    }
+    x[n].className += " active";
+  }
+</script>
 
 </html>
