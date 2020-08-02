@@ -1,5 +1,5 @@
 from django import forms
-from base.models import Event, News, Story, EventRegistrationList
+from base.models import Event, News, Story, EventRegistrationList,Recommendation
 
 
 class AddEvent(forms.ModelForm):
@@ -24,3 +24,10 @@ class EventRegistration(forms.ModelForm):
     class Meta:
         model = EventRegistrationList
         fields = ('name', 'email')
+
+
+class Recommend(forms.ModelForm):
+
+    class Meta:
+        model = Recommendation
+        fields = ('first_name','last_name','email','college','Year_Passing', 'facebook_profile','linkedin_profile')

@@ -161,6 +161,22 @@ class PersontoPersonNotifs(models.Model):
         return "message"
 
 
+class Recommendation(models.Model):
+    from_user = models.ForeignKey(User,on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
+    last_name = models.CharField(max_length=100, blank=True, null=True)
+    college = models.ForeignKey(
+        College, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    Year_Passing = models.IntegerField(blank=True,null=True)
+    email = models.EmailField(null=True, unique=True)
+    facebook_profile = models.URLField(max_length=1000, null=True, blank=True)
+    linkedin_profile = models.URLField(max_length=1000, null=True, blank=True)
+    is_approved = models.BooleanField(default=False)
+
+    def _str_(self):
+        return first_name + " " + last_name
+
 @receiver(post_delete, sender=Event)
 def submission_delete(sender, instance, **kwargs):
     instance.image.delete(False)
