@@ -1,0 +1,83 @@
+{% extends 'payments/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid back">
+    <a class="btn-floating btn-large waves-effect waves-light blue" href="/donate"><i
+            class="material-icons">arrow_back</i></a>
+    <p class="back-text">Go back</p>
+</div>
+<div class="compose-box container z-depth-2">
+    <h2>Donation Form</h2>
+    <form id="dono_form" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12">
+                <input type="text" name="_name_dono" value="{{ dono_name.donation_id }}" disabled="">
+                <label for="_name_dono">Donation Event ID</label>
+            </div>
+        </div>
+        <div class="row" hidden>
+            <div class="input-field col s12">
+                <input type="text" name="name_dono" value="{{ dono_name.donation_id }}" hidden="">
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <select id="Select_dono_amount" name="dono_amount">
+                    {% for amount in dono_amounts %}<option>{{ amount.amount }}</option>{% endfor %}
+                </select>
+                <label>Select Donation Amount</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+                <input id="no_of_dono" type="text"" name="no_of_dono">
+                <label for="email">Number of Donations</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s12">
+                <button type="submit" class="btn waves-effect waves-light">Go!<i
+                        class="material-icons right">send</i></button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="{% static 'payments/js/main.js' %}"></script>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function () {
+        $('select').formSelect();
+    });
+</script>
+<style>
+    button {
+        margin-top: 2em;
+    }
+
+    .compose-box {
+        padding-left: 3em;
+        padding-right: 3em;
+        padding-top: 1.5em;
+        padding-bottom: 1.5em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    .back {
+        margin: 1em;
+    }
+
+    .back-text {
+        display: inline;
+        font-size: 1.5em;
+    }
+    .navbar-fixed{
+        display: none;
+    }
+</style>
+{% endblock %}

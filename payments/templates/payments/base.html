@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Page</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+        integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet prefetch" href="{% static 'chat/css/materialize.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/crypto-js@3.1.9-1/crypto-js.js"></script>
+    <script src="{% static 'chat/js/materialize.js' %}"></script>
+</head>
+
+<body>
+    {% include 'payments/navbar.html' %}
+    <main>
+    {% block content %}
+    {% endblock %}
+    </main>
+    {% include 'payments/footer.html' %}
+</body>
+
+</html>
+<style>
+    body {
+        display: flex;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+
+    main {
+        flex: 1 0 auto;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('.materialboxed').materialbox();
+    });
+    $(function () {
+        $('.sidenav').sidenav({
+            edge: 'right',
+        });
+    });
+
+    function dest(d) {
+        let hash = CryptoJS.MD5(d).toString();
+        window.location.href = "/chat/" + hash;
+    }
+</script>
+{% block js %}
+{% endblock %}
