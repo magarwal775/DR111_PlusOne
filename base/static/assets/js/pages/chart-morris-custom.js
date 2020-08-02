@@ -1,5 +1,5 @@
 'use strict';
-$(document).ready(function() {
+$(document).ready(function(data, labels) {
     setTimeout(function() {
     // [ bar-simple ] chart start
     Morris.Bar({
@@ -205,51 +205,22 @@ $(document).ready(function() {
     // [ line-angle-chart ] Start
     Morris.Line({
         element: 'morris-line-chart',
-        data: [{
-                y: '2006',
-                a: 20,
-                b: 10
-            },
-            {
-                y: '2007',
-                a: 55,
-                b: 45
-            },
-            {
-                y: '2008',
-                a: 45,
-                b: 35
-            },
-            {
-                y: '2009',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2010',
-                a: 50,
-                b: 40
-            },
-            {
-                y: '2011',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2012',
-                a: 100,
-                b: 90
-            }
-        ],
+        data: []
+        var count=labels.count();
+        for(var i = 0; i<count; i+=1){
+          data.push({
+            y: labels[i],
+            a: data[i]
+          });
         xkey: 'y',
         redraw: true,
         resize: true,
         smooth: false,
-        ykeys: ['a', 'b'],
+        ykeys: ['a'],
         hideHover: 'auto',
         responsive:true,
-        labels: ['Series A', 'Series B'],
-        lineColors: ['#1de9b6', '#04a9f5']
+        labels: ['Series A'],
+        lineColors: ['#1de9b6']
     });
     // [ line-angle-chart ] end
     // [ line-smooth-chart ] start
@@ -332,7 +303,7 @@ $(document).ready(function() {
         formatter: function(x) {
             return "val : " + x
         }
-    });    
+    });
     // [ Donut-chart ] end
         }, 700);
 });

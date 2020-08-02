@@ -23,6 +23,7 @@ from accounts.decorators import alumni_required, faculty_required, verify_requir
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse 
 
 
 def base(request):
@@ -427,3 +428,20 @@ def notif_read(request):
             notif.read = True
             notif.save()
     return JsonResponse({" message": "success"})
+
+def analytics(request, *args, **kwargs):
+    labels = []
+    data = []
+    context ={}
+
+    for year in range(1947, datetime.date.today().year + 1):
+        queryset = Alumni.objects.filter(year_of_passing=year)
+        cnt = queryset.count()
+        labels.append(year)
+        data.append(cnt)
+
+    context = {
+        "labels": labels,
+        "data": data,
+    }
+    return JsonResponse(data)
