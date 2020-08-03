@@ -6,8 +6,6 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
-
 {% endblock stylesheets %}
 
 {% block content %}
@@ -19,13 +17,11 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title">
-                            <h5 class="m-b-10">Morris Chart</h5>
+                            <h5 class="m-b-10">Chart</h5>
                         </div>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Chart</a></li>
-                            <li class="breadcrumb-item"><a href="javascript:">Morris Chart</a></li>
-                        </ul>
+                            <li class="breadcrumb-item"><a href="javascript:">Chartwise Details:</a></li>
                     </div>
                 </div>
             </div>
@@ -84,8 +80,6 @@
 
 {% block javascripts %}
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
-<script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+<script src="/static/assets/js/pages/chartpage.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 {% endblock javascripts %}
