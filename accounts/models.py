@@ -50,8 +50,6 @@ class Alumni(models.Model):
     year_of_passing = models.IntegerField(null=True)
     unique_id = models.CharField(unique=True, max_length=200)
     profile_verified = models.BooleanField(default=0)
-    company = models.CharField(max_length=200, null=True, blank=True)
-    title = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     resume = models.URLField(max_length=1000, null=True, blank=True)
 
@@ -72,6 +70,21 @@ class Faculty(models.Model):
     def __str__(self):
         return (self.user.full_name + ", " + self.user.department.name + ", " + self.user.college.name)
 
+class Organisation(models.Model):
+    name = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
+class Job(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200)
+    year_started = models.IntegerField(null=True, blank=True)
+    year_left = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.organisation.name + self.user.full_name
 
 def pre_save_User(sender, instance, *args, **kwargs):
     if not instance.full_name:
