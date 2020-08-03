@@ -36,6 +36,7 @@ from base.views import (
     analytics_dataset2,
     analytics_dataset3,
     analytics_dataset4,
+    verification_recommendation,
 )
 
 app_name = 'base'
@@ -75,4 +76,6 @@ urlpatterns = [
     path('editjobhistory', edit_job_history, name="edit_job_history"),
     path('updatejobhistory/<int:jobhistory_id>', updatejobhistory, name="updatejobhistory"),
     path('addjobhistory', addjobhistory, name="addjobhistory"),
+    path('verifirecommendation', verification_recommendation, name="verification_recommendation")
+
 ]

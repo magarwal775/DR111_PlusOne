@@ -10,6 +10,7 @@ from base.models import (
     Carousel,
     PersontoPersonNotifs,
     EventRegistrationList,
+    Recommendation,
 )
 from jobs.models import Job
 from payments.models import DonationType
@@ -343,6 +344,16 @@ def verification_alumni(request):
     context["account"] = account
     return render(request, "verification-request-list.html", context)
 
+def verification_recommendation(request):
+    context = {}
+    user = request.user
+    account = Recommendation.objects.filter(is_approved=False)
+    pendingrecommendations = account.count()
+    context["pendingapprovals"] = pendingrecommendations
+    if account.count() < 1:
+        context["number"] = 1
+    context["account"] = account
+    return render(request, "verification-recommendation-list.html", context)
 
 def addevent(request):
 

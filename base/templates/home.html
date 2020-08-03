@@ -1,35 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col s12">
-      {% include 'snippets/carousel.html' %}
-    </div>
+<html>
+<head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
 
-    <div class="col s12 m8 l7 xl7">
-      <div class="row">
-        <div class="col s12">
-          {% include 'snippets/gallery-section.html' %}
-        <div class="col s12">
-          {% include 'snippets/jobs-section.html' %}
-        </div>
-        <div class="col s12">
-          {% include 'snippets/donation-section.html' %}
-        </div>
-      </div>
-  </div>
-  </div>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <style type="text/css" media="screen">
+body{
+ background : url('https://www.siarza.com/wp-content/uploads/2017/12/webplunder-background-image-technology-online-website-solutions.jpg'); 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</style>
+    </head>
+ <body>
 
-  <div class="col s12 m4 l5 xl5">
-    <div class="col s12">
+      <!--JavaScript at end of body for optimized loading-->
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+ </body>
+
+     <div class="container"> {% include 'snippets/carousel.html' %}
+      
+     
+     <div class="row">
+     
+      <div class="col s8">
+      {% include 'snippets/jobs-section.html' %}
       {% include 'snippets/story-section.html' %}
-    </div>
-      <div class="col s12">
-        {% include 'snippets/show-news-events.html' %}
+      {% include 'snippets/donation-section.html' %}
       </div>
-  </div>
-  </div>
-</div>
-
+      <div class="col s4"> {% include 'snippets/show-news-events.html' %}</div>
+    </div>
+      
+  
+     
+      
+      </div>
+   
 {% endblock content %}
+</html>
