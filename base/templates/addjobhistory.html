@@ -1,9 +1,13 @@
+
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<link href="{% static 'base/css/addeventform.css' %}" rel="stylesheet">
+<div class="container z-depth-5 white" style="margin-top:5%; padding:10px;">
+  <form method="post">{% csrf_token %}
+    {{form}}
+    <button type="submit">Submit</button>
+  </form>
+</div>
 
-<form method="post">{% csrf_token %}
-  {{form}}
-  <button type="submit">Submit</button>
-</form>
 {% endblock content %}

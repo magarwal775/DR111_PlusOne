@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
 
+<link href="{% static 'base/css/addeventform.css' %}" rel="stylesheet">
   <div class="card">
     {% for each in jobs %}
     <p>{{each.title}} | {{each.organisation.name}} : {{each.year_started}}-{% if each.year_left %}{{each.year_left}}{% else %}Present{% endif %}<p>
