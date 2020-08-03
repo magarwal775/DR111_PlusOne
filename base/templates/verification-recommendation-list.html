@@ -1,0 +1,62 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+
+<style>
+  #info-block{
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 25px;
+  }
+  #info-block > div.section-header{
+    padding-left: 25px;
+    padding-right: 25px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 25px;
+    padding-bottom: 10px;
+  }
+  #info-block > div.main-info{
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-top: 20px;
+  }
+  .emptylist{
+    text-align: center;
+    padding:top: 25px;
+  }
+</style>
+<div class="col-xl-12 col-md-6">
+    <div class="card Recent-Users">
+        <div class="card-header">
+            <h5 style="display:inline">Recommendations Pending: {{pendingapprovals}}</h5>
+        </div>
+        <div class="card-block px-0 py-3">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <tbody>
+                      {% if number %}
+                        <div class="emptylist">
+                          <h4>No Unverified Accounts!</h4>
+                        </div>
+                      {% endif %}
+                      {% for each in account %}
+                        <tr class="unread">
+                            <td><img class="rounded-circle" style="width:40px;" src="/static/assets/images/user/avatar-1.jpg" alt="activity-user"></td>
+                            <td>
+                                <h6 class="mb-1">{{each.first_name}}</h6>
+                                <p class="m-0">{{each.last_name}}...</p>
+                                <p class="m-0">Course: {{each.email}}</p>
+                            </td>
+                            <td>
+                                <h6 class="text-muted"><i class="fas fa-circle text-c-green f-10 m-r-15"></i>{{each.user.system_date_joined}}</h6>
+                            </td>
+                            <!--  -->
+                          </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -3,14 +3,16 @@
 {% block content %}
 
 {% load static %}
-<div class="container">
-  <div class="jumbotron">
+<link href="{% static 'base/css/addeventform.css' %}" rel="stylesheet">
+
+<div class="container white z-depth-5" style="margin-top:5%; padding:15px;">
+
+
     <form method="post">
       {% csrf_token %}
       {{form}}
-      <button type="submit">Submit</button>
+      <button type="submit" style="margin-top:10px">Submit</button>
     </form>
-  </div>
 </div>
 
 {% endblock content %}

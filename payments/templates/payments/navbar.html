@@ -1,40 +1,69 @@
 <header>
     <div class="navbar-fixed">
-        <nav class="blue">
-            <ul class="left hide-on-med-and-down">
-                <li><a href="/" style="text-decoration: none;">Home</a></li>
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                <li><a href="/searchalumni" style="text-decoration: none;">Search</a></li>
-                <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"
-                        style="text-decoration: none;"><i class="material-icons">menu</i></a></li>
-            </ul>
-        </nav>
+      <nav  style="background-color:#001333;">
+        <div class="nav-wrapper">
+          <ul class="left hide-on-med-and-down">
+            <li><a href="/" style="text-decoration: none;"><img src="static/assets/images/SIH_2018_logo.png" alt="" style ="height:55px"></a></li>
+            <li><a href="/" style="text-decoration: none;">Alumni Tracking System</a></li>
+          </ul>
+          <ul class="right hide-on-med-and-down">
+            {% if not user.is_authenticated %}
+            <li><a href="/login" style="text-decoration: none;">Login</a></li>
+            <li><a href="/signup" style="text-decoration: none;">Sign-Up</a></li>
+            {% endif %}
+            <li><a href="/searchalumni" style="text-decoration: none;">Search</a></li>
+            <li><a href="/profile/{{ request.user.username }}/{{ request.user.id }}" style="text-decoration: none;">Profile</a></li>
+            <li><a href="/events" style="text-decoration: none;">Events</a></li>
+            <li><a href="/donate" style="text-decoration: none;">Donate</a></li>
+            <li><a href="/news" style="text-decoration: none;">News</a></li>
+            <li><a href="/stories" style="text-decoration: none;">Stories</a></li>
+            <li><a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"
+                style="text-decoration: none;"><i class="material-icons">menu</i></a></li>
+          </ul>
+        </div>
+      </nav>
     </div>
-
-
     <ul id="slide-out" class="sidenav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="https://picsum.photos/600">
-                </div>
-                <a href="#user" style="text-decoration: none;"><img class="circle materialboxed"
-                        src="{{ request.user.profile_photo.url }}"></a>
-                <a href="#name" style="text-decoration: none;"><span
-                        class="white-text name">{{ request.user.full_name }}</span></a>
-                <a href="#email" style="text-decoration: none;"><span
-                        class="white-text email">{{ request.user.email }}</span></a>
-            </div>
-        </li>
-        <li><a href="/profile/{{ request.user.username }}/{{ request.user.id }}"><i
-                    class="material-icons">account_circle</i>Profile</a></li>
-        <li><a href="/chat/general"><i class="material-icons">chat</i>Group Chat</a></li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li><a onclick="dest('{{ request.user.college.name }}')"><i class="material-icons">chat_bubble</i>College
-                Chat</a></li>
-        <li><a class="waves-effect" href="/logout"><i class="material-icons">remove_circle</i>Logout</a></li>
+      <li>
+        <div class="user-view">
+          <div class="background">
+            <img src="https://picsum.photos/600">
+          </div>
+          {% if user.is_authenticated %}
+          <a href="#user" style="text-decoration: none;"><img class="circle materialboxed"
+              src="{{ request.user.profile_photo.url }}"></a>
+          <a href="#name" style="text-decoration: none;"><span
+              class="white-text name">{{ request.user.full_name }}</span></a>
+          <a href="#email" style="text-decoration: none;"><span
+              class="white-text email">{{ request.user.email }}</span></a>
+          {% else %}
+          <a href="#user" style="text-decoration: none;"><img class="circle materialboxed"
+              src="http://www.gravatar.com/avatar/?d=mp"></a>
+          <a href="#name" style="text-decoration: none;"><span class="white-text-name">Not Logged In</span></a>
+          <a href="#email" style="text-decoration: none;"><span
+              class="white-text email">{{ request.user.email }}</span></a>
+          {% endif %}
+        </div>
+      </li>
+      {% if user.is_authenticated %}
+      <li><a href="/profile/{{ request.user.username }}/{{ request.user.id }}"><i
+            class="material-icons">account_circle</i>Profile</a></li>
+      <li><a href="/chat/general"><i class="material-icons">chat</i>Group Chat</a></li>
+      <li><a href="/notifications/"><i class="material-icons">notifications</i>Notifications<span
+            class="new badge">{{ new.count }}</span></a></li>
+      <li>
+        <div class="divider"></div>
+      </li>
+      <li><a onclick="dest('{{ request.user.college.name }}')"><i class="material-icons">chat_bubble</i>College
+          Chat</a></li>
+      {% if user.is_faculty or user.is_admin or user.is_superuser %}
+      <li><a href="/dashboard"><i class="material-icons">chat_bubble</i>Admin DashBoard</a></li>
+      {% endif %}
+      <li><a class="waves-effect" href="/logout"><i class="material-icons">remove_circle</i>Logout</a></li>
+      {% else %}
+      <li><a href="/login" style="text-decoration: none;"><i class="material-icons">account_circle</i>Login</a></li>
+      <li><a href="/signup" style="text-decoration: none;"><i class="material-icons">account_circle</i>Sign-Up</a></li>
+      {% endif %}
     </ul>
-</header>
+  </header>
+  
