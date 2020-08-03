@@ -15,7 +15,7 @@ from jobs.models import Job
 from payments.models import DonationType
 from django.db.models import Q
 import datetime
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .filters import UserFilter
 from base.forms import AddEvent, AddNews, AddStory, EventRegistration, Recommend
 from college.models import College, Department
@@ -23,6 +23,7 @@ from accounts.decorators import alumni_required, faculty_required, verify_requir
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+import csv
 
 
 def base(request):
@@ -393,6 +394,7 @@ def addstory(request):
     context["form"] = form
     return render(request, "addstory.html", context)
 
+
 def recommend(request):
 
     context = {}
@@ -411,8 +413,6 @@ def recommend(request):
 
     context["form"] = form
     return render(request, "recommend.html", context)
-
-
 
 
 @csrf_exempt
@@ -482,24 +482,38 @@ def analytics_dataset(request):
         data.append(cnt)
 
     chartlabels.append("Alumnis - Year")
-    context = {
-        "labels": labels,
-        "data": data,
-        "chartlabels" : chartlabels
-    }
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
+
 
 def facultylist(request):
     context = {}
-    user=request.user
+    user = request.user
     faculty = Faculty.objects.filter(user__college=user.college)
     context["faculty"] = faculty
     context["faculty_count"] = faculty.count()
 
     return render(request, "faculty-list.html", context)
 
+
 def search_alumni_admin(request):
     context = {}
     user_list = User.objects.filter(is_alumni=1)
     user_filter = UserFilter(request.GET, queryset=user_list)
     return render(request, "search_alumni_admin.html", {"filter": user_filter})
+
+
+def save_as_csv(request):
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment: filname="backup.csv"'
+    writer = csv.writer(response)
+    writer.writerow([
+        'First Name', 'Last Name', 'Full Name', 'College', 'Course', 'Department', 'Specialization', 'DOB', 'E-Mail',
+        'Phone', 'Is Alumni', 'Is Facculty'
+    ])
+    for user in User.objects.all():
+        writer.writerow([
+            user.first_name, user.last_name, user.full_name, user.college, user.course, user.department,
+            user.specialization, user.dob, user.emmail, user.phone, user.is_alumni, user.is_faculty
+        ])
+    return response
