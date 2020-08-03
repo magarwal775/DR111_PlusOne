@@ -17,7 +17,7 @@ from django.db.models import Q
 import datetime
 from django.http import JsonResponse, HttpResponse
 from .filters import UserFilter
-from base.forms import AddEvent, AddNews, AddStory, EventRegistration, Recommend
+from base.forms import AddEvent, AddNews, AddStory, AddJobHistory, EventRegistration, Recommend, UpdateJobHistory
 from college.models import College, Course, Department, Specialization
 from accounts.decorators import alumni_required, faculty_required, verify_required
 from django.views.decorators.csrf import csrf_exempt
@@ -277,7 +277,7 @@ def profile(request, user_name, user_id):
         context["is_alumni"] = 1
         context["is_faculty"] = 0
         context["alumni"] = alumni
-        jobs = JobHistory.objects.filter(alumni=alumni)
+        jobs = JobHistory.objects.filter(alumni=alumni).order_by("year_started")
         context["jobs"] = jobs
     elif user.is_faculty:
         faculty = Faculty.objects.get(user=user)
@@ -578,3 +578,38 @@ def edit_job_history(request):
     context["jobs"] = jobs
 
     return render(request, "editjobhistory.html", context)
+
+def updatejobhistory(request, jobhistory_id):
+     context = {}
+
+     user = request.user
+     job = JobHistory.objects.get(id=jobhistory_id)
+
+     if request.POST:
+         form = UpdateJobHistory(request.POST, instance=job)
+         if form.is_valid():
+             form.save()
+             return redirect("base:profile", user.first_name, user.id)
+     else:
+         form = UpdateJobHistory(instance=job)
+
+     context["form"] = form
+     return render(request, "updatejobhistory.html", context)
+
+def addjobhistory(request):
+    context = {}
+
+    user = request.user
+    alumni = Alumni.objects.get(user=user)
+    if request.POST:
+        form = AddJobHistory(request.POST)
+        if form.is_valid():
+            cur = form.save(commit=False)
+            cur.alumni = alumni
+            cur.save()
+            return redirect("base:profile", user.first_name, user.id)
+    else:
+        form = AddJobHistory()
+
+    context["form"] = form
+    return render(request, "addjobhistory.html", context)

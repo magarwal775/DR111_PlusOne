@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="card">
+    {% for each in jobs %}
+    <p>{{each.title}} | {{each.organisation.name}} : {{each.year_started}}-{% if each.year_left %}{{each.year_left}}{% else %}Present{% endif %}<p>
+    <p><a href="{% url 'base:updatejobhistory' each.id %}">Edit</a></p>
+    {% endfor %}
+    <a href="{% url 'base:addjobhistory' %}"><p>Add new job history</p></a>
+  </div>
+{% endblock content %}

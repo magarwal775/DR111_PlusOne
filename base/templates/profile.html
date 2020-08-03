@@ -66,16 +66,19 @@
         {% endif %}
 
         {% if editprofile %}
-        <a href="{% url 'accounts:update_alumni_profile' %}" <button>Edit Profile</button></a>
+        <a href="{% url 'accounts:update_alumni_profile' %}"><button>Edit Profile</button></a>
         {% endif %}
         {% if request.user.is_staff and is_alumni and not alumni.profile_verified %}
         <form method="post">{% csrf_token %}
           <button type="submit">Approve verification</button>
         </form>
         {% endif %}
+        {% if user == request.user and alumni %}
+          <a href="{% url 'base:edit_job_history' %}"><button>Edit Job History</button></a>
+        {% endif %}
         <!-- <img src="https://goo.gl/Gp6bWr" alt="University of Michigan UMD" style="width: 100px; "> -->
 
-        <br /><br />
+        <br/><br />
         {%if is_alumni%}
         <strong>{{user.course}} &bull; Batch of {{alumni.year_of_passing}}</strong>
         {% elif is_faculty%}

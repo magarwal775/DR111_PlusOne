@@ -1,5 +1,6 @@
 from django import forms
 from base.models import Event, News, Story, EventRegistrationList,Recommendation
+from accounts.models import JobHistory, Organisation
 import datetime
 
 def year_choices():
@@ -35,3 +36,13 @@ class Recommend(forms.ModelForm):
     class Meta:
         model = Recommendation
         fields = ('first_name','last_name','email','college','Year_Passing','facebook_profile','linkedin_profile')
+
+class UpdateJobHistory(forms.ModelForm):
+    class Meta:
+        model = JobHistory
+        fields = ('organisation', 'title', 'year_started', 'year_left')
+
+class AddJobHistory(forms.ModelForm):
+    class Meta:
+        model = JobHistory
+        fields = ('organisation', 'title', 'year_started', 'year_left')

@@ -29,7 +29,10 @@ from base.views import (
     analytics_dataset,
     facultylist,
     search_alumni_admin,
-    save_as_csv
+    save_as_csv,
+    edit_job_history,
+    updatejobhistory,
+    addjobhistory,
 )
 
 app_name = 'base'
@@ -62,5 +65,8 @@ urlpatterns = [
     path('recommend', recommend, name="recommend"),
     path('facultylist', facultylist, name="facultylist"),
     path('searchalumniadmin', search_alumni_admin, name="search_alumni_admin"),
-    path('backup', save_as_csv, name="Backup Data")
+    path('backup', save_as_csv, name="Backup Data"),
+    path('editjobhistory', edit_job_history, name="edit_job_history"),
+    path('updatejobhistory/<int:jobhistory_id>', updatejobhistory, name="updatejobhistory"),
+    path('addjobhistory', addjobhistory, name="addjobhistory"),
 ]
