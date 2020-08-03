@@ -1,34 +1,77 @@
-<style type="text/css" media="screen">
-.card {
- width:400px;
-}
-.view-all{
-  font-size=150%;
-  font-color= black;
-}
+<style>
+  #home-donation{
+    margin-top: 20px;
+    font-style: normal;
+    line-height: 1.5;
+    cursor: auto;
+    font-weight: normal;
+    font-size: 1.3rem;
+    color: #333;
+    text-shadow: none;
+    -webkit-font-smoothing: antialiased;
+    font-family: "Lato",Georgia,Helvetica,Arial,sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    margin-bottom: 1.4rem;
+    box-shadow: 0 0 3px rgba(0,0,0,0.15),-1px 0 0 rgba(0,0,0,0.03),1px 0 1px rgba(0,0,0,0.03),0 1px 0 rgba(0,0,0,0.12);
+  }
+  #home-donation > div > div.section-header > h5{
+    color: #333;
+    float: left;
+    display: inline;
+    font-size: 1.8rem;
+  }
+  #home-donation > div > div.section-header > a > p{
+    float: right;
+  }
+  #home-donation > div > div.section-content > div > a > img{
+    height: 15rem;
+    width: 100%;
+  }
+  #home-donation > div > div.section-header{
+    padding-left: 25px;
+    border-bottom: 1px solid #f2f2f2;
+    padding-top: 25px;
+    padding-bottom: 10px;
+    padding-right: 25px;
+  }
+  #home-donation > div > div.section-content > div > a > p.title{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+  }
+  #home-donation > div > div.section-content > div > a > p.body{
+    padding-left: 20px;
+    margin-right: 20px;
+    color: black;
+  }
+  #home-donation > div > div.section-content > div > a > p.days-remaining{
+    padding-left: 20px;
+    margin-right: 20px;
+    color: grey;
+  }
 </style>
- <div class="home-donation">
- <div class="section-header">
+<div id="home-donation">
+  <div class="card">
+    <div class="section-header">
       <h5><b>FUNDRAISING PROJECTS</b></h5>
-      
+      <a class="view-all" href="#"><p class="view-all">view all</p></a>
     </div>
- {% for each in donation %}
- <div class="card">
-    <div class="card-image waves-effect waves-block waves-light">
-      <img class="activator" src="{{each.image.url}}">
-    </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{each.donation_name}}<i class="material-icons right">more_vert</i></span>
-      <a class="waves-effect waves-light btn-large" href="#">DONATE</a>
-      <!-- <p><a href="#">This is a link</a></p> -->
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">{{each.donation_name}}<i class="material-icons right">close</i></span>
-      <p class="body">{{each.description}}</p>
+    <div class="section-content">
+      {% for each in donation %}
+      <div class="col-sm-6">
+        <a href="#">
+          {% if each.image %}
+            <img src="{{each.image.url}}">
+          {% endif %}
+          <p class="title">{{each.donation_name}}</p>
+          <p class="body">{{each.description}}</p>
           <p class="days-remaining">{{each.days_remaining}} days to go</p>
+        </a>
+      </div>
+      {% endfor %}
     </div>
   </div>
-
-  {% endfor %}
-  <a class="view-all" href="#"><div class="view-all">view all</div></a>
-  </div>
+</div>

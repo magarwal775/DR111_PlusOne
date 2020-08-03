@@ -92,7 +92,6 @@ class CompleteAlumniProfile(forms.ModelForm):
     specialization = forms.ModelChoiceField(queryset=specialization_choices, required=False)
     dob = forms.DateField()
     year_of_passing = forms.ChoiceField(choices=year_choices())
-    location = forms.CharField(max_length=200, required=True)
     facebook_profile = forms.URLField(max_length=1000, required=False)
     twitter_profile = forms.URLField(max_length=1000, required=False)
     linkedin_profile = forms.URLField(max_length=1000, required=False)
@@ -100,7 +99,7 @@ class CompleteAlumniProfile(forms.ModelForm):
 
     class Meta:
         model = Alumni
-        fields = ('dob', 'course', 'department', 'specialization', 'location', 'facebook_profile', 'twitter_profile',
+        fields = ('dob', 'course', 'department', 'specialization', 'facebook_profile', 'twitter_profile',
                   'linkedin_profile', 'about_me')
 
     def __init__(self, user, *args, **kwargs):
@@ -129,7 +128,6 @@ class CompleteAlumniProfile(forms.ModelForm):
         user.twitter_profile = self.cleaned_data['twitter_profile']
         user.linkedin_profile = self.cleaned_data['linkedin_profile']
         user.about_me = self.cleaned_data['about_me']
-        user.location = self.cleaned_data['location']
         user.profile_complete = 1
         alumni.save()
         user.save()

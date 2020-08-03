@@ -1,0 +1,216 @@
+/* Adapt Screen Size */
+@media (max-width: 576px)
+{
+  .personal-img
+  {
+    width: 170px !important;
+    height: 170px !important;
+  }
+
+  .nav-button-text
+  {
+    font-size: 14px !important;
+  }
+
+  .nav-button
+  {
+    width:  50px !important;
+    height: 50px !important;
+    padding-bottom: 10px;
+  }
+
+  .modal-content
+  {
+      width: 100% !important;
+  }
+}
+
+@media (min-width: 576px)
+{
+  .nav-button-text
+  {
+    font-size: 12px !important;
+  }
+
+  .nav-button
+  {
+    width:  60px !important;
+    height: 60px !important;
+    padding-bottom: 10px;
+  }
+}
+
+@media (min-width: 768px)
+{
+  .nav-button
+  {
+    width:  70px !important;
+    height: 70px !important;
+    padding-bottom: 10px;
+  }
+}
+
+@media (min-width: 992px)
+{
+  .nav-button-text
+  {
+    font-size: 14px !important;
+  }
+
+  .nav-button
+  {
+    width:  80px !important;
+    height: 80px !important;
+  }
+}
+
+@media (min-width: 1200px)
+{
+  .nav-button-text
+  {
+    font-size: 12px !important;
+  }
+
+  .nav-button
+  {
+    width:  90px !important;
+    height: 90px !important;
+  }
+}
+
+
+/* Tag Styles */
+p
+{
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.nav-texture
+{
+  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=1a1a1a&noise=626262&density=30&opacity=10);
+}
+
+
+.background-div
+{
+  background-image: url(http://api.thumbr.it/whitenoise-361x370.png?background=333333ff&noise=626262&density=20&opacity=5);
+}
+
+/* Section Styles */
+
+.side-shadow
+{
+  box-shadow: 10px 20px 20px rgba(0,0,0,0.5), -10px 20px 20px rgba(0,0,0,0.4);
+}
+
+.container-custom
+{
+  flex: 1 1 auto;
+  font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  position: relative;
+  z-index: 1;
+  top: 160px;
+}
+
+.top-section
+{
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  margin: 0px !important;
+}
+
+.middle-section
+{
+  border-radius: 0 !important;
+  margin: 0px !important;
+}
+
+.bottom-section
+{
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  margin: 0px !important;
+}
+
+.bug{
+  top: 300px;
+}
+
+/* Personal Picture Style */
+.personal-img
+{
+  width: 200px;
+  height: 200px;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,1);
+}
+
+
+.personal-img-container
+{
+  margin-top: 40px;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+}
+
+/* Navigation Buttons Style */
+.nav-button
+{
+  opacity: 0.8;
+
+  cursor: pointer;
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+.nav-button:hover
+{
+  opacity: 1;
+  width: 100px !important;
+  height: 100px !important;
+}
+
+.nav-button-text
+{
+  font-family: Helvetica;
+  color: white;
+}
+
+/* Resume Section Style */
+.white-underline
+{
+  background-color:
+  whitesmoke;
+  height: 2px;
+  width: 100%;
+  margin-left: 5px;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  opacity: 0.6;
+}
+
+.text-bold-header
+{
+  font-weight: 800;
+}
+
+.text-bold-secondary
+{
+  font-weight: 700;
+}
+
+.ul-resume
+{
+  padding-left: 15;
+}
+
+.subheading-resume
+{
+  font-weight: 400;
+}
+
+#resume-sec > div > div > div.col-lg-7 > div > div:nth-child(3){
+  padding-bottom: 1px;
+  padding-top: 1px;
+}

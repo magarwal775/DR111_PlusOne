@@ -63,7 +63,7 @@
               <p class="story-title">{{storyitem.title}}</p>
               <p class="story-author">By {{storyitem.user.first_name}} {{storyitem.user.last_name}}</p>
               <p class="separator"></p>
-              <p class="story-body">{{storyitem.body|slice:":50"}}...</p>
+              <p class="story-body">{{storyitem.body|slice:":400"}}...</p>
             </a>
           </div>
           <a href="{% url 'base:allstory' %}" class="read-full"><p class="read-full">Read All Stories</p></a>

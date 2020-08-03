@@ -8,22 +8,4 @@ __pycache__
 
 db.sqlite3
 
-media
-
-media_cdn
-
-accounts/migrations/00*
-
-base/migrations/00*
-
-college/migrations/00*
-
-jobs/migrations/00*
-
-chat/migrations/00*
-
-payments/migrations/00*
-
-mailer/migrations/00*
-
 .env
