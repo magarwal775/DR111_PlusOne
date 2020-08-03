@@ -452,15 +452,18 @@ def analytics(request, *args, **kwargs):
 def analytics_dataset(request):
     labels = []
     data = []
+    chartlabels = []
 
-    for year in range(2019, datetime.date.today().year + 1):
+    for year in range(2005, datetime.date.today().year + 1):
         queryset = Alumni.objects.filter(year_of_passing=year)
         cnt = queryset.count()
         labels.append(year)
         data.append(cnt)
 
+    chartlabels.append("Alumnis - Year")
     context = {
         "labels": labels,
         "data": data,
+        "chartlabels" : chartlabels
     }
-    return JsonResponse(context)
+    return JsonResponse(data=context)

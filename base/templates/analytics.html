@@ -6,7 +6,7 @@
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
 
-<link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
 
 {% endblock stylesheets %}
 
@@ -83,7 +83,7 @@
                                 <h5>Line [ Angle ] Chart</h5>
                             </div>
                             <div class="card-block">
-                                <div id="morris-line-chart" class="ChartShadow" style="height:300px"></div>
+                                <canvas id="morris-line-chart" style="height:300px"></div>
                             </div>
                         </div>
                     </div>
@@ -121,8 +121,8 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
-<script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
-<script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
 {% endblock javascripts %}
