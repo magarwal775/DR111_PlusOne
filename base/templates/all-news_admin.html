@@ -1,0 +1,83 @@
+{% extends 'dashboard.html' %}
+
+{% block content %}
+<style type="text/css" media="screen">
+.row{
+  margin-left: 20%;
+}
+
+div .news-item{
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  margin: 10px 10px 30px 10px;
+}
+.news-item:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.news-item-content{
+  padding: 2px 16px;
+  overflow: hidden;
+}
+.news-item-title{
+    text-align: left;
+    font-family: Georgia,Helvetica,Arial,sans-serif;
+    padding-top: 10px;
+    margin-bottom: 0;
+    font-size: 200% ;
+}
+.news-item-meta{
+    text-align: left;
+    font-family: Georgia,Helvetica,Arial,sans-serif;
+    padding-top: 10px;
+    margin-bottom: 0;
+    font-size: 80% ;
+    font-color: grey;
+
+}
+.news-list-header{
+  font-weight:bold;
+  text-align: center;
+  font-size: 250% ;
+  margin-bottom: 100px;
+}
+.btn-primary{
+      background-color: #f37020 !important;
+      display: inline-block;
+      float: right;
+    }
+.news-item-text {
+  font-size: 120% ;
+  display: block;
+  width: 700px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+</style>
+<div class="news-list-header">
+  <p>News and Updates</p>
+</div>
+
+<div class="row" id="news-list">
+  {% for each in news %}
+  <!-- <a href="{% url 'base:speceficnews' each.id %}"> -->
+    <div class="news-item col col-lg-9 col-md-12 col-sm-12 col-12">
+      <div class="news-item-content">
+        <p class="news-item-title">{{each.title}}</p>
+        <a href="{% url 'base:speceficnews' each.id %}" class="btn btn-primary" role="button">Read More</a>
+        {% if each.user.is_alumni %}
+          <span class="news-item-meta">{{each.date_time}} -via Alumni</span>
+        {% else %}
+          <span class="news-item-meta">{{each.date_time}} -via University</span>
+        {% endif %}
+        <p class="news-item-text">{{each.body}}</p>
+
+
+
+      </div>
+    </div>
+  <!-- </a> -->
+  {% endfor %}
+</div>
+
+{% endblock content %}

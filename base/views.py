@@ -24,12 +24,13 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 import csv
+from django.contrib.admin.views.decorators import staff_member_required
 
 
 def base(request):
     return render(request, "base.html")
 
-
+@staff_member_required
 def dashboard(request):
     user = request.user
     context = {}
@@ -152,10 +153,13 @@ def allnews(request):
         news = News.objects.order_by("-date_time")
         context["news"] = news
     else:
-        news = News.objects.filter(college=user.college).order_by("-date_time")
+        news = News.objects.filter(Q(college=user.college) | (Q(college__isnull=True))).order_by("-date_time")
         context["news"] = news
 
-    return render(request, "all-news.html", context)
+    if user.is_staff:
+        return render(request, "all-news_admin.html", context)
+    else:
+        return render(request, "all-news.html", context)
 
 
 def allevents(request):
@@ -170,12 +174,15 @@ def allevents(request):
         context["past_events"] = past_events
     else:
         today = datetime.datetime.today()
-        upcoming_events = Event.objects.filter(Q(start_date__gte=today)).filter(college=user.college)
-        past_events = Event.objects.filter(Q(start_date__lt=today)).filter(college=user.college)
+        upcoming_events = Event.objects.filter(Q(start_date__gte=today)).filter(Q(college=user.college) | (Q(college__isnull=True)))
+        past_events = Event.objects.filter(Q(start_date__lt=today)).filter(Q(college=user.college) | (Q(college__isnull=True)))
         context["upcoming_events"] = upcoming_events
         context["past_events"] = past_events
 
-    return render(request, "all-events.html", context)
+    if user.is_staff:
+        return render(request, "all-events_admin.html", context)
+    else:
+        return render(request, "all-events.html", context)
 
 
 def allstory(request):
@@ -354,7 +361,10 @@ def addevent(request):
         form = AddEvent()
 
     context["form"] = form
-    return render(request, "addevent.html", context)
+    if request.user.is_staff:
+        return render(request, "addevent_admin.html", context)
+    else:
+        return render(request, "addevent.html", context)
 
 
 def addnews(request):
@@ -374,7 +384,10 @@ def addnews(request):
         form = AddNews()
 
     context["form"] = form
-    return render(request, "addnews.html", context)
+    if request.user.is_staff:
+        return render(request, "addnews_admin.html", context)
+    else:
+        return render(request, "addnews.html", context)
 
 
 def addstory(request):
