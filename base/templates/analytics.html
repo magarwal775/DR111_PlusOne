@@ -14,7 +14,6 @@
 
 <div class="pcoded-content">
     <div class="pcoded-inner-content">
-        <!-- [ breadcrumb ] start -->
         <div class="page-header">
             <div class="page-block">
                 <div class="row align-items-center">
@@ -31,85 +30,50 @@
                 </div>
             </div>
         </div>
-        <!-- [ breadcrumb ] end -->
         <div class="main-body">
             <div class="page-wrapper">
-                <!-- [ Main Content ] start -->
                 <div class="row">
-                    <!-- [ Morris Chart ] start -->
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Bar [ Simple ] Chart</h5>
+                                <h5>Total Alumni - Year</h5>
                             </div>
                             <div class="card-block">
-                                <div id="morris-bar-chart" style="height:300px"></div>
+                                <canvas id="morris-line-chart" style="height:300px"></canvas>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Bar [ Stacked ] Chart</h5>
+                                <h5>Course - Alumni</h5>
                             </div>
                             <div class="card-block">
-                                <div id="morris-bar-stacked-chart" style="height:300px"></div>
+                                <canvas id="morris-bar-chart" style="height:300px"></canvas>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Line [ Angle ] Chart</h5>
+                                <h5>Specialization - Alumni</h5>
                             </div>
                             <div class="card-block">
-                                <div id="morris-area-chart" style="height:300px"></div>
+                                <canvas id="morris-specialization-chart" style="height:300px"></canvas>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5>Area [ Smooth ] Chart</h5>
+                                <h5>Department - Alumni</h5>
                             </div>
                             <div class="card-block">
-                                <div id="morris-area-curved-chart" style="height:300px"></div>
+                                <canvas id="morris-pie-chart" style="height:300px"></canvas>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Line [ Angle ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <canvas id="morris-line-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Line [ Smooth ] Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-line-smooth-chart" class="ChartShadow" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5>Donut Chart</h5>
-                            </div>
-                            <div class="card-block">
-                                <div id="morris-donut-chart" style="height:300px"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- [ Morris Chart ] end -->
                 </div>
-                <!-- [ Main Content ] end -->
             </div>
         </div>
     </div>
@@ -118,7 +82,6 @@
 
 {% endblock content %}
 
-<!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
