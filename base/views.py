@@ -487,6 +487,7 @@ def analytics_dataset(request):
     context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
 
+@csrf_exempt
 def analytics_dataset2(request):
     labels = []
     data = []
@@ -503,6 +504,7 @@ def analytics_dataset2(request):
     context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
 
+@csrf_exempt
 def analytics_dataset3(request):
     labels = []
     data = []
@@ -519,6 +521,7 @@ def analytics_dataset3(request):
     context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
 
+@csrf_exempt
 def analytics_dataset4(request):
     labels = []
     data = []
