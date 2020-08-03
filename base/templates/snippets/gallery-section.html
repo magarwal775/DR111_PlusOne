@@ -26,8 +26,18 @@
   #home-gallery > div.gallery.row > div > div.mdb-lightbox > figure > a > img{
     padding-top: 15px;
   }
+  .responsive {
+    align-self: center;
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    max-width: 600px;
+    border-radius: 30px;
+    padding: 5px;
+
+  }
 </style>
-<div id="home-gallery" class="card">
+<!-- <div id="home-gallery" class="card">
   <div class="gallery-heading">
     <h5><b>Gallery</b></h5>
     <a href="{% url 'base:allGallery' %}"><p class="viewall">view all</p></a>
@@ -51,4 +61,22 @@
 
     </div>
   </div>
-</div>
+</div> -->
+
+<div id="home-gallery" class="card">
+  <div class="card-title" style="padding:10px">
+    <h5><b>Gallery</b></h5>
+    <a href="{% url 'base:allGallery' %}"><p style="text-align: right;">view all</p></a>
+  </div>
+  <div class="gallery row">
+    <div id="mdb-lightbox-ui"></div>
+
+    <div class="mdb-lightbox">
+    {% for each in gallery %}
+    <div class="col s12 m4">
+      <img alt="picture" src="{{each.img.url}}" class="responsive">
+    </div>
+    {% endfor %}
+  </div>
+</div>  
+</div>  
