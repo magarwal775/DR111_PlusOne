@@ -559,12 +559,12 @@ def save_as_csv(request):
     writer = csv.writer(response)
     writer.writerow([
         'First Name', 'Last Name', 'Full Name', 'College', 'Course', 'Department', 'Specialization', 'DOB', 'E-Mail',
-        'Phone', 'Is Alumni', 'Is Facculty'
+        'Phone', 'Is-Alumni', 'Is-Faculty'
     ])
     for user in User.objects.all():
         writer.writerow([
             user.first_name, user.last_name, user.full_name, user.college, user.course, user.department,
-            user.specialization, user.dob, user.emmail, user.phone, user.is_alumni, user.is_faculty
+            user.specialization, user.dob, user.email, user.phone, user.is_alumni, user.is_faculty
         ])
     return response
 
