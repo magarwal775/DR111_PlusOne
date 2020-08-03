@@ -1,50 +1,27 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<style>
-  div.news-detail-page{
-    padding-left: 400px;
-    padding-right: 400px;
-    padding-top: 50px;
-  }
 
-  div.news-detail-page > div.section-heading > p{
-    text-align: center;
-    font-size: 2rem;
-    color: #086490;
-  }
-
-  div.news-detail-page > div.section-body > p.separator{
-    border-bottom: 1px solid grey;
-    box-sizing: border-box;
-    margin: 0.5rem auto 0;
-    align: center;
-  }
-
-  div.news-detail-page > div.section-body > p.body{
-    font-size: 0.9rem;
-    padding-top: 20px;
-  }
-
-  div.news-detail-page > div.section-body > p.body-image{
-    padding-top: 20px;
-    text-align: center;
-  }
-</style>
-
-<div class="news-detail-page container">
-  <div class="section-heading">
-    <p><b>{{news.title}}</b></p>
-  </div>
-  <div class="section-body">
-    <p class="date">Posted on {{news.date_time_date}} {{news.date_time_month}}, {{news.date_time_year}}</p>
-    <p class="separator"></p>
+<div class="container">
+  <div class="row">
+    <div class="col s8">
+      <p style="font-size:3.5rem;"><b>{{news.title}}</b></p>
+    </div>
+  <div class="col s8">
+    <p class="date">Posted on<i>{{news.date_time_date}} {{news.date_time_month}}, {{news.date_time_year}}</i></p>
+</div>
+  <p class="separator"></p>
+  <div class="col s8">
     {% if news.image %}
     <p class="body-image"><img src="{{news.image.url}}"></p>
     {% endif %}
-    <p class="body">{{news.body}}</p>
   </div>
+<div class="col s8">
+    <p class="flow-text" style=" word-wrap: break-word;">{{news.body}}</p>
+</div>
 
+  </div>
+<div>
   <div id="disqus_thread"></div>
   <script>
     /**

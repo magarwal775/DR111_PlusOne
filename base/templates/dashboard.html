@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <title>
-        Django Dashboard Datta Able - {% block title %}{% endblock %} | AppSeed
+        Admin DashBoard - {% block title %}{% endblock %}
     </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,7 +23,7 @@
     <meta name="author" content="CodedThemes" />
 
     <!-- Favicon icon -->
-    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/assets/images/SIH_2018_logo.png" type="image/x-icon">
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="/static/assets/fonts/fontawesome/css/fontawesome-all.min.css">
     <!-- animation css -->
@@ -30,8 +31,16 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="/static/assets/css/style.css">
 
+      <link rel="stylesheet" href="{% static 'chat/css/materialize.css' %}">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
     <script src="https://code.jquery.com/jquery-3.5.1.js"
         integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+
+        <script src="{% static 'chat/js/materialize.js' %}"></script>
+
+
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
 
