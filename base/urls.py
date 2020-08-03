@@ -33,6 +33,9 @@ from base.views import (
     edit_job_history,
     updatejobhistory,
     addjobhistory,
+    analytics_dataset2,
+    analytics_dataset3,
+    analytics_dataset4,
 )
 
 app_name = 'base'
@@ -62,6 +65,9 @@ urlpatterns = [
     path('dashboard', dashboard, name="dashboard"),
     path('analytics', analytics, name="analytics"),
     path('analytics_dataset/', analytics_dataset, name="analytics_dataset"),
+    path('analytics_dataset2/', analytics_dataset2, name="analytics_dataset2"),
+    path('analytics_dataset3/', analytics_dataset3, name="analytics_dataset3"),
+    path('analytics_dataset4/', analytics_dataset4, name="analytics_dataset4"),
     path('recommend', recommend, name="recommend"),
     path('facultylist', facultylist, name="facultylist"),
     path('searchalumniadmin', search_alumni_admin, name="search_alumni_admin"),

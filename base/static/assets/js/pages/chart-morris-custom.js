@@ -1,28 +1,32 @@
 'use strict';
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
 $(document).ready(function () {
-    let lineDict = [];
     var $linechart = $('#morris-line-chart');
+    var $barchart = $('#morris-bar-chart');
+    var $piechart = $('#morris-pie-chart');
+    var $specializationChart = $('#morris-specialization-chart');
 
     $.ajax({
         type: 'post',
         url: '/analytics_dataset/',
         success: function (res) {
-            console.log(res.labels, res.data);
-            for (var i = 0; i < res['data'].length; i++) {
-                lineDict.push({
-                    year: res['labels'][i] + '',
-                    almunis: 40 * i
-                });
-            };
-            console.log(lineDict);
             var ctx = $linechart[0].getContext("2d");
             new Chart(ctx, {
-                type: 'bar',
+                type: 'line',
                 data: {
                     labels: res.labels,
                     datasets: [{
                         label: res.chartlabels,
-                        backgroundColor: 'grey',
+                        backgroundColor: 'aqua',
                         data: res.data
                     }]
                 },
@@ -30,10 +34,6 @@ $(document).ready(function () {
                     responsive: true,
                     legend: {
                         position: 'top',
-                    },
-                    title: {
-                        display: true,
-                        text: 'Population Bar Chart'
                     },
                     scales: {
                         xAxes: [{
@@ -53,292 +53,112 @@ $(document).ready(function () {
             console.log(err);
         }
     });
-    // [ bar-simple ] chart start
 
-    // [ bar-simple ] chart end
-    Morris.Bar({
-        element: 'morris-bar-chart',
-        data: [{
-            year: '2020',
-            alumnis: 2
-        },
-        {
-            year: '2021',
-            alumnis: 3
-        }],
-        xkey: 'year',
-        responsive: true,
-        ykeys: ['alumins'],
-        labels: ['Bar 1'],
-        barColors: ["0-#1de9b6-#1dc4e9"]
-    });
-    // [ bar-stacked ] chart start
-    Morris.Bar({
-        element: 'morris-bar-stacked-chart',
-        data: [{
-            y: '2008',
-            a: 50,
-            b: 40,
-            c: 35,
-        },
-        {
-            y: '2009',
-            a: 75,
-            b: 65,
-            c: 60,
-        },
-        {
-            y: '2010',
-            a: 50,
-            b: 40,
-            c: 55,
-        },
-        {
-            y: '2011',
-            a: 75,
-            b: 65,
-            c: 85,
-        },
-        {
-            y: '2012',
-            a: 100,
-            b: 90,
-            c: 40,
-        }
-        ],
-        xkey: 'y',
-        stacked: true,
-        barSizeRatio: 0.50,
-        barGap: 3,
-        resize: true,
-        responsive: true,
-        ykeys: ['a', 'b', 'c'],
-        labels: ['Bar 1', 'Bar 2', 'Bar 3'],
-        barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
-    });
-    // [ bar-stacked ] chart end
+    $.ajax({
+        type: 'post',
+        url: '/analytics_dataset2/',
+        success: function (res) {
+            var ctx = $barchart[0].getContext("2d");
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: res.labels,
+                    datasets: [{
+                        label: res.chartlabels,
+                        backgroundColor: 'grey',
+                        data: res.data
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
 
-    // [ area-angle-chart ] start
-    Morris.Area({
-        element: 'morris-area-chart',
-        data: [{
-            y: '2006',
-            a: 0,
-            b: 0
         },
-        {
-            y: '2007',
-            a: 130,
-            b: 100
-        },
-        {
-            y: '2008',
-            a: 80,
-            b: 60
-        },
-        {
-            y: '2009',
-            a: 70,
-            b: 200
-        },
-        {
-            y: '2010',
-            a: 220,
-            b: 150
-        },
-        {
-            y: '2011',
-            a: 105,
-            b: 90
-        },
-        {
-            y: '2012',
-            a: 250,
-            b: 150
-        }
-        ],
-        xkey: 'y',
-        ykeys: ['a', 'b'],
-        labels: ['Series A', 'Series B'],
-        pointSize: 0,
-        fillOpacity: 0.8,
-        pointStrokeColors: ['#b4becb', '#A389D4'],
-        behaveLikeLine: true,
-        gridLineColor: '#e0e0e0',
-        lineWidth: 0,
-        smooth: false,
-        hideHover: 'auto',
-        responsive: true,
-        lineColors: ['#b4becb', '#A389D4'],
-        resize: true
-    });
-    // [ area-angle-chart ] end
-    Morris.Line({
-        element: 'morris-line-chart',
-        data: lineDict,
-        xkey: 'year',
-        redraw: true,
-        resize: true,
-        smooth: false,
-        ykeys: ['alumnis'],
-        hideHover: 'auto',
-        responsive: true,
-        labels: ['Series A'],
-        lineColors: ['#1de9b6']
-    });
-    // [ area-smooth-chart ] start
-    Morris.Area({
-        element: 'morris-area-curved-chart',
-        data: [{
-            period: '2010',
-            iphone: 0,
-            ipad: 0,
-            itouch: 0
-        }, {
-            period: '2011',
-            iphone: 50,
-            ipad: 15,
-            itouch: 5
-        }, {
-            period: '2012',
-            iphone: 20,
-            ipad: 50,
-            itouch: 65
-        }, {
-            period: '2013',
-            iphone: 60,
-            ipad: 12,
-            itouch: 7
-        }, {
-            period: '2014',
-            iphone: 30,
-            ipad: 20,
-            itouch: 120
-        }, {
-            period: '2015',
-            iphone: 25,
-            ipad: 80,
-            itouch: 40
-        }, {
-            period: '2016',
-            iphone: 10,
-            ipad: 10,
-            itouch: 10
-        }],
-        lineColors: ['#A389D4', '#1de9b6', '#04a9f5'],
-        xkey: 'period',
-        ykeys: ['iphone', 'ipad', 'itouch'],
-        labels: ['Site A', 'Site B', 'Site C'],
-        pointSize: 0,
-        lineWidth: 0,
-        resize: true,
-        fillOpacity: 0.9,
-        responsive: true,
-        behaveLikeLine: true,
-        gridLineColor: '#d2d2d2',
-        hideHover: 'auto'
-    });
-    // [ area-smooth-chart ] end
-
-    // [ line-angle-chart ] Start
-    // var linegraph = new Morris.Line({
-    //     element: 'morris-line-chart',
-    //     data: [{
-    //         year: '2019',
-    //         almunis: 4
-    //     },
-    //     {
-    //         year: '2020',
-    //         alumnis: 5
-    //     }],
-    //     xkey: 'year',
-    //     smooth: false,
-    //     ykeys: ['alumnis'],
-    //     labels: ['Series A'],
-    //     lineColors: ['#1de9b6']
-    // });
-
-    // [ line-angle-chart ] end
-    // [ line-smooth-chart ] start
-    Morris.Line({
-        element: 'morris-line-smooth-chart',
-        data: [{
-            y: '2006',
-            a: 100,
-            b: 90
-        },
-        {
-            y: '2007',
-            a: 75,
-            b: 65
-        },
-        {
-            y: '2008',
-            a: 50,
-            b: 40
-        },
-        {
-            y: '2009',
-            a: 75,
-            b: 65
-        },
-        {
-            y: '2010',
-            a: 50,
-            b: 40
-        },
-        {
-            y: '2011',
-            a: 75,
-            b: 65
-        },
-        {
-            y: '2012',
-            a: 100,
-            b: 90
-        }
-        ],
-        xkey: 'y',
-        redraw: true,
-        resize: true,
-        ykeys: ['a', 'b'],
-        hideHover: 'auto',
-        responsive: true,
-        labels: ['Series A', 'Series B'],
-        lineColors: ['#1de9b6', '#A389D4']
-    });
-    // [ line-smooth-chart ] end
-
-    // [ Donut-chart ] Start
-    var graph = Morris.Donut({
-        element: 'morris-donut-chart',
-        data: [{
-            value: 60,
-            label: 'Data 1'
-        },
-        {
-            value: 20,
-            label: 'Data 1'
-        },
-        {
-            value: 10,
-            label: 'Data 1'
-        },
-        {
-            value: 5,
-            label: 'Data 1'
-        }
-        ],
-        colors: [
-            '#1de9b6',
-            '#A389D4',
-            '#04a9f5',
-            '#1dc4e9',
-        ],
-        resize: true,
-        formatter: function (x) {
-            return "val : " + x
+        error: function (err) {
+            console.log(err);
         }
     });
-    // [ Donut-chart ] end
+
+    $.ajax({
+        type: 'post',
+        url: '/analytics_dataset3/',
+        success: function (res) {
+            var ctx = $piechart[0].getContext("2d");
+            var colorarray = [];
+            for (var i = 0; i < res['labels'].length; i++)
+                colorarray.push(getRandomColor());
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: res.labels,
+                    datasets: [{
+                        label: res.chartlabels,
+                        backgroundColor: colorarray,
+                        data: res.data
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    }
+                }
+            });
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+
+    $.ajax({
+        type: 'post',
+        url: '/analytics_dataset4/',
+        success: function (res) {
+            var ctx = $specializationChart[0].getContext("2d");
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: res.labels,
+                    datasets: [{
+                        label: res.chartlabels,
+                        backgroundColor: getRandomColor(),
+                        data: res.data
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'top',
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true
+                        }],
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
 });

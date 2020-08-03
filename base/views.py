@@ -477,7 +477,7 @@ def analytics_dataset(request):
     data = []
     chartlabels = []
 
-    for year in range(1947, 1957):
+    for year in range(2010,2020):
         queryset = Alumni.objects.filter(year_of_passing=year)
         cnt = queryset.count()
         labels.append(year)
