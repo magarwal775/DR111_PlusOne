@@ -118,7 +118,10 @@ def login_view(request):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return redirect("base:home")
+                    if user.is_staff:
+                        return redirect("base:dashboard")
+                    else:
+                        return redirect("base:home")
                 else:
                     return HttpResponse("Your account was inactive.")
             else:

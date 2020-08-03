@@ -29,7 +29,11 @@ from django.contrib.admin.views.decorators import staff_member_required
 
 
 def base(request):
-    return render(request, "base.html")
+    user = request.user
+    if user.is_staff:
+        return redirect("base:dashboard")
+    else:
+        return render(request, "base.html")
 
 @staff_member_required
 def dashboard(request):
