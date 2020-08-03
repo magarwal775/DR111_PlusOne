@@ -29,6 +29,7 @@ from base.views import (
     analytics_dataset,
     facultylist,
     search_alumni_admin,
+    save_as_csv
 )
 
 app_name = 'base'
@@ -60,5 +61,6 @@ urlpatterns = [
     path('analytics_dataset/', analytics_dataset, name="analytics_dataset"),
     path('recommend', recommend, name="recommend"),
     path('facultylist', facultylist, name="facultylist"),
-    path('searchalumniadmin', search_alumni_admin, name="search_alumni_admin")
+    path('searchalumniadmin', search_alumni_admin, name="search_alumni_admin"),
+    path('backup', save_as_csv, name="Backup Data")
 ]

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from accounts.models import Alumni, Faculty, User
+from accounts.models import Alumni, Faculty, User, JobHistory, Organisation
 from base.models import (
     Event,
     Notice,
@@ -15,14 +15,15 @@ from jobs.models import Job
 from payments.models import DonationType
 from django.db.models import Q
 import datetime
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from .filters import UserFilter
 from base.forms import AddEvent, AddNews, AddStory, EventRegistration, Recommend
-from college.models import College, Department
+from college.models import College, Course, Department, Specialization
 from accounts.decorators import alumni_required, faculty_required, verify_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+import csv
 
 
 def base(request):
@@ -276,6 +277,8 @@ def profile(request, user_name, user_id):
         context["is_alumni"] = 1
         context["is_faculty"] = 0
         context["alumni"] = alumni
+        jobs = JobHistory.objects.filter(alumni=alumni)
+        context["jobs"] = jobs
     elif user.is_faculty:
         faculty = Faculty.objects.get(user=user)
         context["is_alumni"] = 0
@@ -393,6 +396,7 @@ def addstory(request):
     context["form"] = form
     return render(request, "addstory.html", context)
 
+
 def recommend(request):
 
     context = {}
@@ -411,8 +415,6 @@ def recommend(request):
 
     context["form"] = form
     return render(request, "recommend.html", context)
-
-
 
 
 @csrf_exempt
@@ -475,31 +477,104 @@ def analytics_dataset(request):
     data = []
     chartlabels = []
 
-    for year in range(2005, datetime.date.today().year + 1):
+    for year in range(1947, 1957):
         queryset = Alumni.objects.filter(year_of_passing=year)
         cnt = queryset.count()
         labels.append(year)
         data.append(cnt)
 
     chartlabels.append("Alumnis - Year")
-    context = {
-        "labels": labels,
-        "data": data,
-        "chartlabels" : chartlabels
-    }
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
+
+@csrf_exempt
+def analytics_dataset2(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    course = Course.objects.all()
+    for each in course:
+        queryset = User.objects.filter(course=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Course - Alumni")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
+@csrf_exempt
+def analytics_dataset3(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    department = Department.objects.all()
+    for each in department:
+        queryset = User.objects.filter(department=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Department - Alumni")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
+@csrf_exempt
+def analytics_dataset4(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    specialization = Specialization.objects.all()
+    for each in specialization:
+        queryset = User.objects.filter(specialization=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Specialization - Alumni")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
 
 def facultylist(request):
     context = {}
-    user=request.user
+    user = request.user
     faculty = Faculty.objects.filter(user__college=user.college)
     context["faculty"] = faculty
     context["faculty_count"] = faculty.count()
 
     return render(request, "faculty-list.html", context)
 
+
 def search_alumni_admin(request):
     context = {}
     user_list = User.objects.filter(is_alumni=1)
     user_filter = UserFilter(request.GET, queryset=user_list)
     return render(request, "search_alumni_admin.html", {"filter": user_filter})
+
+
+def save_as_csv(request):
+    response = HttpResponse(content_type="text/csv")
+    response["Content-Disposition"] = 'attachment: filname="backup.csv"'
+    writer = csv.writer(response)
+    writer.writerow([
+        'First Name', 'Last Name', 'Full Name', 'College', 'Course', 'Department', 'Specialization', 'DOB', 'E-Mail',
+        'Phone', 'Is-Alumni', 'Is-Faculty'
+    ])
+    for user in User.objects.all():
+        writer.writerow([
+            user.first_name, user.last_name, user.full_name, user.college, user.course, user.department,
+            user.specialization, user.dob, user.email, user.phone, user.is_alumni, user.is_faculty
+        ])
+    return response
+
+def edit_job_history(request):
+    context = {}
+    user=request.user
+    jobs = JobHistory.objects.filter(alumni__user=user)
+    context["jobs"] = jobs
+
+    return render(request, "editjobhistory.html", context)

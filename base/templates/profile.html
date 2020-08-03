@@ -185,23 +185,25 @@
         <div class="col-lg-7">
           <!-- Left Column -->
 
-          {% if alumni.company or alumni.title %}
+          {% if jobs %}
           <div>
             <!-- Experience Section -->
             <h4>EXPERIENCE</h4>
             <div class="white-underline"></div>
 
+            {% for each in jobs %}
             <div class="section">
               <div class="row">
                 <div class="col-lg-8">
-                  <p class="text-bold-header">{{alumni.company}} | {{alumni.title}}</p>
+                  <p class="text-bold-header">{{each.title}}  | {{each.organisation}}</p>
                 </div>
 
                 <div class="col-lg-4 text-right">
-                  <p class="text-bold-secondary">2012-2013</p>
+                  <p class="text-bold-secondary">{{each.year_started}} - {% if each.year_left %}{{each.year_left}}{% else %}Present{% endif %}</p>
                 </div>
               </div>
             </div>
+            {% endfor %}
           </div>
           {% endif %}
 

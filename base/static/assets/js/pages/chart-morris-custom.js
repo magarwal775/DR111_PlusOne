@@ -10,7 +10,6 @@ $(document).ready(function () {
             console.log(res.labels, res.data);
             for (var i = 0; i < res['data'].length; i++) {
                 lineDict.push({
-<<<<<<< HEAD
                     year: res['labels'][i] + '',
                     almunis: 40 * i
                 });
@@ -49,18 +48,11 @@ $(document).ready(function () {
                 }
             });
 
-=======
-                    year: res['labels'][i],
-                    almunis: res['data'][i]
-                })
-            }
->>>>>>> 9ef9c368d0047c09f574f7767b5aacfa3b3d73fc
         },
         error: function (err) {
             console.log(err);
         }
     });
-<<<<<<< HEAD
     // [ bar-simple ] chart start
 
     // [ bar-simple ] chart end
@@ -125,79 +117,6 @@ $(document).ready(function () {
         barColors: ["0-#1de9b6-#1dc4e9", "0-#899FD4-#A389D4", "#04a9f5"]
     });
     // [ bar-stacked ] chart end
-=======
-    setTimeout(function () {
-        // [ bar-simple ] chart start
-        Morris.Bar({
-            element: 'morris-bar-chart',
-            data: [{
-                year: '2008',
-                alumni: 50,
-            },
-            {
-                year: '2009',
-                alumni: 75,
-            },
-            {
-                year: '2010',
-                alumni: 50,
-            },
-            {
-                year: '2011',
-                alumni: 75,
-            },
-            {
-                year: '2012',
-                alumni: 100,
-            }
-            ],
-            xkey: 'year',
-            barSizeRatio: 1,
-            barGap: 1,
-            resize: true,
-            responsive: true,
-            ykeys: ['alumni'],
-            labels: ['Bar 1'],
-            barColors: ["0-#1de9b6-#1dc4e9"]
-        });
-        // [ bar-simple ] chart end
-
-        // [ bar-stacked ] chart start
-        Morris.Bar({
-            element: 'morris-bar-stacked-chart',
-            data: [{
-                year: '2008',
-                alumni: 50,
-            },
-            {
-                year: '2009',
-                alumni: 75,
-            },
-            {
-                year: '2010',
-                alumni: 50,
-            },
-            {
-                year: '2011',
-                alumni: 75,
-            },
-            {
-                year: '2012',
-                alumni: 100,
-            }
-            ],
-            xkey: 'year',
-            stacked: true,
-            barSizeRatio: 0.50,
-            barGap: 3,
-            resize: true,
-            responsive: true,
-            ykeys: ['alumni'],
-            labels: ['Bar 1'],
-            barColors: ["0-#1de9b6-#1dc4e9"]
-        });
-        // [ bar-stacked ] chart end
->>>>>>> 9ef9c368d0047c09f574f7767b5aacfa3b3d73fc
 
     // [ area-angle-chart ] start
     Morris.Area({
@@ -339,7 +258,6 @@ $(document).ready(function () {
     //     lineColors: ['#1de9b6']
     // });
 
-<<<<<<< HEAD
     // [ line-angle-chart ] end
     // [ line-smooth-chart ] start
     Morris.Line({
@@ -390,72 +308,6 @@ $(document).ready(function () {
         lineColors: ['#1de9b6', '#A389D4']
     });
     // [ line-smooth-chart ] end
-=======
-        // [ line-angle-chart ] Start
-        Morris.Line({
-            element: 'morris-line-chart',
-            data: lineDict,
-            xkey: 'year',
-            redraw: true,
-            resize: true,
-            smooth: false,
-            ykeys: ['alumnis'],
-            hideHover: 'auto',
-            responsive: true,
-            labels: ['Alumnis'],
-            lineColors: ['#1de9b6']
-        });
-        // [ line-angle-chart ] end
-        // [ line-smooth-chart ] start
-        Morris.Line({
-            element: 'morris-line-smooth-chart',
-            data: [{
-                y: '2006',
-                a: 100,
-                b: 90
-            },
-            {
-                y: '2007',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2008',
-                a: 50,
-                b: 40
-            },
-            {
-                y: '2009',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2010',
-                a: 50,
-                b: 40
-            },
-            {
-                y: '2011',
-                a: 75,
-                b: 65
-            },
-            {
-                y: '2012',
-                a: 100,
-                b: 90
-            }
-            ],
-            xkey: 'y',
-            redraw: true,
-            resize: true,
-            ykeys: ['a', 'b'],
-            hideHover: 'auto',
-            responsive: true,
-            labels: ['Series A', 'Series B'],
-            lineColors: ['#1de9b6', '#A389D4']
-        });
-        // [ line-smooth-chart ] end
->>>>>>> 9ef9c368d0047c09f574f7767b5aacfa3b3d73fc
 
     // [ Donut-chart ] Start
     var graph = Morris.Donut({
