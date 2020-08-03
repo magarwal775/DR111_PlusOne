@@ -26,7 +26,9 @@ from base.views import (
     dashboard,
     analytics,
     # recommend,
-    analytics_dataset
+    analytics_dataset,
+    facultylist,
+    search_alumni_admin,
 )
 
 app_name = 'base'
@@ -57,4 +59,6 @@ urlpatterns = [
     path('analytics', analytics, name="analytics"),
     path('analytics_dataset/', analytics_dataset, name="analytics_dataset"),
     # path('recommend', recommend, name="recommend"),
+    path('facultylist', facultylist, name="facultylist"),
+    path('searchalumniadmin', search_alumni_admin, name="search_alumni_admin")
 ]

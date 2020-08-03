@@ -466,4 +466,19 @@ def analytics_dataset(request):
         "data": data,
         "chartlabels" : chartlabels
     }
-    return JsonResponse(data=context)
+    return JsonResponse(context)
+
+def facultylist(request):
+    context = {}
+    user=request.user
+    faculty = Faculty.objects.filter(user__college=user.college)
+    context["faculty"] = faculty
+    context["faculty_count"] = faculty.count()
+
+    return render(request, "faculty-list.html", context)
+
+def search_alumni_admin(request):
+    context = {}
+    user_list = User.objects.filter(is_alumni=1)
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, "search_alumni_admin.html", {"filter": user_filter})
