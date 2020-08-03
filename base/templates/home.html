@@ -1,22 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
   <div class="row">
-    <div class="col col-lg-2">
-
-    </div>
-    <div class="col col-lg-6 col-md-12 col-sm-6 col-12 main-part">
+    <div class="col s12">
       {% include 'snippets/carousel.html' %}
-      <hr style = "border: none">
-      {% include 'snippets/gallery-section.html' %}
-      {% include 'snippets/jobs-section.html' %}
-      {% include 'snippets/donation-section.html' %}
     </div>
-    <div class="col col-lg-2 col-md-12 col-sm-12 col-12">
-      {% include 'snippets/show-news-events.html' %}
+
+    <div class="col s12 m8 l7 xl7">
+      <div class="row">
+        <div class="col s12">
+          {% include 'snippets/Gallery.html' %}
+        <div class="col s12">
+          {% include 'snippets/jobs-section.html' %}
+        </div>
+        <div class="col s12">
+          {% include 'snippets/donation-section.html' %}
+        </div>
+      </div>
+  </div>
+  </div>
+
+  <div class="col s12 m4 l5 xl5">
+    <div class="col s12">
       {% include 'snippets/story-section.html' %}
     </div>
+      <div class="col s12">
+        {% include 'snippets/show-news-events.html' %}
+      </div>
+  </div>
   </div>
 </div>
+
 {% endblock content %}
