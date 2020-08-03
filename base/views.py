@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from accounts.models import Alumni, Faculty, User
+from accounts.models import Alumni, Faculty, User, JobHistory, Organisation
 from base.models import (
     Event,
     Notice,
@@ -18,7 +18,7 @@ import datetime
 from django.http import JsonResponse, HttpResponse
 from .filters import UserFilter
 from base.forms import AddEvent, AddNews, AddStory, EventRegistration, Recommend
-from college.models import College, Department
+from college.models import College, Course, Department, Specialization
 from accounts.decorators import alumni_required, faculty_required, verify_required
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -277,6 +277,8 @@ def profile(request, user_name, user_id):
         context["is_alumni"] = 1
         context["is_faculty"] = 0
         context["alumni"] = alumni
+        jobs = JobHistory.objects.filter(alumni=alumni)
+        context["jobs"] = jobs
     elif user.is_faculty:
         faculty = Faculty.objects.get(user=user)
         context["is_alumni"] = 0
@@ -475,13 +477,61 @@ def analytics_dataset(request):
     data = []
     chartlabels = []
 
-    for year in range(2005, datetime.date.today().year + 1):
+    for year in range(1947, 1957):
         queryset = Alumni.objects.filter(year_of_passing=year)
         cnt = queryset.count()
         labels.append(year)
         data.append(cnt)
 
     chartlabels.append("Alumnis - Year")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
+def analytics_dataset2(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    course = Course.objects.all()
+    for each in course:
+        queryset = User.objects.filter(course=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Course - Alumni")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
+def analytics_dataset3(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    department = Department.objects.all()
+    for each in department:
+        queryset = User.objects.filter(department=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Department - Alumni")
+    context = {"labels": labels, "data": data, "chartlabels": chartlabels}
+    return JsonResponse(context)
+
+def analytics_dataset4(request):
+    labels = []
+    data = []
+    chartlabels = []
+
+    specialization = Specialization.objects.all()
+    for each in specialization:
+        queryset = User.objects.filter(specialization=each).filter(is_alumni=1)
+        cnt = queryset.count()
+        labels.append(each.name)
+        data.append(cnt)
+
+    chartlabels.append("Specialization - Alumni")
     context = {"labels": labels, "data": data, "chartlabels": chartlabels}
     return JsonResponse(context)
 
@@ -517,3 +567,11 @@ def save_as_csv(request):
             user.specialization, user.dob, user.emmail, user.phone, user.is_alumni, user.is_faculty
         ])
     return response
+
+def edit_job_history(request):
+    context = {}
+    user=request.user
+    jobs = JobHistory.objects.filter(alumni__user=user)
+    context["jobs"] = jobs
+
+    return render(request, "editjobhistory.html", context)

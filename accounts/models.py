@@ -76,15 +76,15 @@ class Organisation(models.Model):
     def __str__(self):
         return self.name
 
-class Job(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class JobHistory(models.Model):
+    alumni = models.ForeignKey(Alumni, on_delete=models.CASCADE)
     organisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    year_started = models.IntegerField(null=True, blank=True)
-    year_left = models.IntegerField(null=True, blank=True)
+    year_started = models.IntegerField()
+    year_left = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
-        return self.organisation.name + self.user.full_name
+        return self.organisation.name + self.alumni.full_name
 
 def pre_save_User(sender, instance, *args, **kwargs):
     if not instance.full_name:
