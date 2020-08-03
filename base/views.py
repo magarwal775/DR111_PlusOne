@@ -17,7 +17,7 @@ from django.db.models import Q
 import datetime
 from django.http import JsonResponse
 from .filters import UserFilter
-from base.forms import AddEvent, AddNews, AddStory, EventRegistration
+from base.forms import AddEvent, AddNews, AddStory, EventRegistration, Recommend
 from college.models import College, Department
 from accounts.decorators import alumni_required, faculty_required, verify_required
 from django.views.decorators.csrf import csrf_exempt
@@ -392,6 +392,27 @@ def addstory(request):
 
     context["form"] = form
     return render(request, "addstory.html", context)
+
+def recommend(request):
+
+    context = {}
+
+    user = request.user
+
+    if request.POST:
+        form = Recommend(request.POST)
+        if form.is_valid():
+            current = form.save(commit=False)
+            current.from_user = request.user
+            current.save()
+            return redirect("base:home")
+    else:
+        form = Recommend()
+
+    context["form"] = form
+    return render(request, "recommend.html", context)
+
+
 
 
 @csrf_exempt
