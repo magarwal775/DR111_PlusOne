@@ -1,5 +1,7 @@
 # AlumniTrackingSystem
 
+### All the related slides are in the Slides/ folder and All the related videos are in the DemoVideos/ folder
+
 Run this command in your terminal first:
 `sudo apt install python3-venv postgresql postgresql-contrib`
 
