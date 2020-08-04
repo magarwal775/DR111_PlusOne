@@ -36,7 +36,7 @@ You will be back to the original terminal.
 
 The website is now up and running at `http://localhost:8000/`
 
-To Check the reak-time chat function you need to install redis. Steps to install redis are as follows:
+To Check the real-time chat function you need to install redis. Steps to install redis are as follows:
 
 1. `sudo apt install redis-server`
 2. `sudo nano /etc/redis/redis.conf`
